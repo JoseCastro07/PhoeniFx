@@ -1,0 +1,53 @@
+.main_containerA {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin-top: 100px;
+    padding-right: 0px;
+}
+
+.fechaActiva {
+    background-color: #8AC8BB;
+    color: #00084d;
+    cursor: pointer;
+}
+
+.cal-month-view .cal-day-cell.cal-today {
+    background-color: #FBF1E4 !important;
+}
+
+.fechaActual {
+    border: 1px solid brown;
+}
+
+.swal2-footer {
+    display: block !important;
+    text-align: center !important;
+}
+
+.toast-top-center {
+    top: 250px !important;
+    right: 0;
+    width: 100%;
+}
+
+.animate__animated {
+    animation-fill-mode: none !important;
+}
+
+.viewA {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+@media only screen and (max-width: 400px) {
+    .viewA {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+}
+
+.ocultar {
+    display: none !important;
+}

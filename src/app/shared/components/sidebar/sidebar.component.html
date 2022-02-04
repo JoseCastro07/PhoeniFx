@@ -1,0 +1,32 @@
+<nav class="sidebar animate__animated animate__fadeInDown" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
+    <div class="list-group">
+        <div class="nested-menu" *ngFor="let item of sideMenu">
+            <a *ngIf="item.link !== 'notificaciones'" routerLink="{{ item.link }}" [routerLinkActive]="['router-link-active']" class="list-group-item" style="padding-left: 5px;" (click)="eventoE()">
+                <button mat-button class="btn modulo" type="button">
+          <mat-icon
+            *ngIf="collapsed"
+            title="Mantenimiento de {{ item.titulo }}"
+            >{{ item.icono }}</mat-icon
+          >
+          <mat-icon *ngIf="!collapsed">{{ item.icono }}</mat-icon
+          >&nbsp;<span>{{ item.titulo }}</span>
+        </button>
+            </a>
+            <a *ngIf="item.link === 'notificaciones'" [routerLinkActive]="['router-link-active']" class="list-group-item" style="padding-left: 5px;" (click)="openDialog()">
+                <button mat-button class="btn modulo" type="button">
+          <mat-icon
+            *ngIf="collapsed"
+            title="Mantenimiento de {{ item.titulo }}"
+            >{{ item.icono }}</mat-icon
+          >
+          <mat-icon *ngIf="!collapsed">{{ item.icono }}</mat-icon
+          >&nbsp;<span>{{ item.titulo }}</span>
+        </button>
+            </a>
+        </div>
+    </div>
+    <div class="toggle-button animated fadeIn" [ngClass]="{ collapsed: collapsed }" (click)="toggleCollapsed()">
+        <mat-icon *ngIf="!collapsed" style="padding-left: 110px;" title="Cerrar">arrow_back</mat-icon>
+        <mat-icon *ngIf="collapsed" style="padding-left: 5px;" title="Abrir">arrow_forward</mat-icon>
+    </div>
+</nav>

@@ -1,0 +1,348 @@
+<div class="main-containerPl" *ngIf="isDataAvailable">
+    <form autocomplete="off" [formGroup]="addPlanTradingForm" (ngSubmit)="addPlanTrading()">
+        <div class="row plan">
+            <div class="col-lg-12 col-md-12 col-sm-12 animate__animated animate__bounce animate__delay-1s" style="text-align: center;margin-bottom: 20px;">
+                <h1 style="font-size: 50px; color: #262F3D;">PLAN DE TRADING</h1>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 animate__animated animate__fadeInDown ">
+                <mat-card>
+                    <mat-card-header style="background-color: #B6AF9C; border-radius: 10px">
+                        <mat-card-title class="animate__animated animate__bounce animate__delay-2s">
+                            <h4 style="color: #fff; margin-top: 15px; text-align: center">
+                                <label class="disminuir">Perfil Trading</label>
+                            </h4>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="row col-lg-12 col-md-12 col-sm-12" style="
+                        padding-right: 0px;
+                    ">
+                            <div class="col" style="
+                            padding-right: 0px;
+                        ">
+                                <br>
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Tipo Trader</mat-label>
+                                    <input matInput placeholder="Tipo Trader" formControlName="tipoTrader" />
+                                    <button mat-button type="button" *ngIf="addPlanTradingForm.get('tipoTrader').value" matSuffix mat-icon-button aria-label="Clear" (click)="addPlanTradingForm.get('tipoTrader').setValue('')">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Pares Preferidos</mat-label>
+                                    <input matInput placeholder="Pares Preferidos" formControlName="paresPreferidos" />
+                                    <button mat-button type="button" *ngIf="addPlanTradingForm.get('paresPreferidos').value" matSuffix mat-icon-button aria-label="Clear" (click)="addPlanTradingForm.get('paresPreferidos').setValue('')">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Sistema de Trading</mat-label>
+                                    <input matInput placeholder="Sistema de Trading" formControlName="sistema" />
+                                    <button mat-button type="button" *ngIf="addPlanTradingForm.get('sistema').value" matSuffix mat-icon-button aria-label="Clear" (click)="addPlanTradingForm.get('sistema').setValue('')">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Reglas de Entrada</mat-label>
+                                    <input matInput placeholder="Reglas de Entrada" formControlName="reglas" />
+                                    <button mat-button type="button" *ngIf="addPlanTradingForm.get('reglas').value" matSuffix mat-icon-button aria-label="Clear" (click)="addPlanTradingForm.get('reglas').setValue('')">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Riesgo Benefico</mat-label>
+                                    <input matInput placeholder="Riesgo Benefico" formControlName="riesgo" />
+                                    <button mat-button type="button" *ngIf="addPlanTradingForm.get('riesgo').value" matSuffix mat-icon-button aria-label="Clear" (click)="addPlanTradingForm.get('riesgo').setValue('')">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                                <mat-label>Días Operación:</mat-label>
+                                <ul *ngFor="let dia of dias" style="display:inline-block;padding-left: 15px;">
+                                    <li style="display:block;">
+                                        <mat-checkbox [value]="dia.id" [checked]="dia.estado" (change)="onCheckChange($event, dia)" color="primary">
+                                            {{ dia.descripcion }}
+                                        </mat-checkbox>
+                                    </li>
+                                </ul>
+                                <div class="row">
+                                    <div class="col" style="text-align: center;
+                                ">
+                                        <mat-label>Meta Pips Semanal:&nbsp;{{addPlanTradingForm.get('meta').value}}
+                                        </mat-label>
+                                        <mat-slider formControlName="meta" min="0" max="1000" thumbLabel class="example-margin" aria-labelledby="example-name-label" color="warn">
+                                        </mat-slider>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col" style="text-align: center;
+                                ">
+                                        <mat-label>Horas de Backtesting Semanal:&nbsp;{{addPlanTradingForm.get('horasB').value}}
+                                        </mat-label>
+                                        <mat-slider formControlName="horasB" max="168" min="0" thumbLabel class="example-margin" aria-labelledby="example-name-label" color="accent">
+                                        </mat-slider>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col" style="text-align: center;
+                                ">
+                                        <mat-label>Horas de Estudio Teórico Semanal:&nbsp;{{addPlanTradingForm.get('horasE').value}}
+                                        </mat-label>
+                                        <mat-slider formControlName="horasE" min="0" max="168" thumbLabel class="example-margin" aria-labelledby="example-name-label" color="primary">
+                                        </mat-slider>
+                                    </div>
+                                </div>
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Fortalezas</mat-label>
+                                    <input matInput placeholder="Fortalezas" formControlName="fortalezas" />
+                                    <button mat-button type="button" *ngIf="addPlanTradingForm.get('fortalezas').value" matSuffix mat-icon-button aria-label="Clear" (click)="addPlanTradingForm.get('fortalezas').setValue('')">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Mi Creencia de Crecimiento</mat-label>
+                                    <input matInput placeholder="Mi Creencia de Crecimiento" formControlName="creencia" />
+                                    <button mat-button type="button" *ngIf="addPlanTradingForm.get('creencia').value" matSuffix mat-icon-button aria-label="Clear" (click)="addPlanTradingForm.get('creencia').setValue('')">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                                <mat-card>
+                                    <mat-card-header style="margin-top: 10px;">
+                                        <mat-card-title>
+                                            <p>Avance Educación</p>
+                                        </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <mat-card>
+                                            <p>Sección de Trading</p>
+                                            <mat-card-content matTooltip="{{ resultadoT }}" matTooltipPosition="below">
+                                                <section class="example-section">
+                                                    <div class="posicionP">
+                                                        <mat-progress-bar class="example-margin" color="primary" mode="determinate" [value]="progressT">
+                                                        </mat-progress-bar>
+                                                        <div style="position: absolute">
+                                                            <h6 style="margin-bottom: 15px">{{ progressT }}%</h6>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </mat-card-content>
+                                            <p>Sección de Educación</p>
+                                            <mat-card-content matTooltip="{{ resultadoE }}" matTooltipPosition="below">
+                                                <section class="example-section">
+                                                    <div class="posicionP">
+                                                        <mat-progress-bar class="example-margin" color="warn" mode="determinate" [value]="progressE">
+                                                        </mat-progress-bar>
+                                                        <div style="position: absolute">
+                                                            <h6 style="margin-bottom: 15px">{{ progressE }}%</h6>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </mat-card-content>
+                                            <p>Sección de Desarrollo</p>
+                                            <mat-card-content matTooltip="{{ resultadoD }}" matTooltipPosition="below">
+                                                <section class="example-section">
+                                                    <div class="posicionP">
+                                                        <mat-progress-bar class="example-margin" color="accent" mode="determinate" [value]="progressD">
+                                                        </mat-progress-bar>
+                                                        <div style="position: absolute">
+                                                            <h6 style="margin-bottom: 15px">{{ progressD }}%</h6>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2"></div>
+            <div class="col-lg-5 col-md-5 col-sm-5 animate__animated animate__fadeInUp  bajar">
+                <mat-card style="    height: auto;
+                max-height: 979px;
+                overflow-y: auto;">
+                    <mat-card-header style="background-color: #B6AF9C; border-radius: 10px">
+                        <mat-card-title class="animate__animated animate__bounce animate__delay-2s" style="margin-bottom: 12px;">
+                            <div class="row">
+                                <div class="col">
+                                    <h4 style="color: #fff; margin-top: 15px; text-align: center; margin-bottom: 0px;">
+                                        <label class="disminuir">Trades &nbsp;</label>
+                                        <mat-icon style="float: right;cursor: pointer; font-size: xx-large;" (click)="addControlTrade()" matTooltip="+ Añadir Trade" matTooltipPosition="above" matTooltipClass="example-tooltipPT">add_box</mat-icon>
+                                    </h4>
+                                </div>
+                                <img *ngIf="getControlsT().length > 0" alt="Excel" src="assets/images/excel.png" width="40" height="40" matTooltip="Exportar a Excel" matTooltipPosition="above" matTooltipClass="example-tooltipPT" (click)="exportExcel()" style="margin-top: 11px;float: right;cursor: pointer; font-size: xx-large;"
+                                />
+                            </div>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <br>
+                        <div formArrayName="controlTrade">
+                            <div [formGroupName]="i" *ngFor="let controlT of getControlsT(); let i = index" style="margin-bottom: 5px;">
+                                <mat-card class="example-card">
+                                    <mat-card-content>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12" style="
+                                padding-right: 0px;
+                                padding-left: 0px;
+                                margin-right: 0px;
+                                margin-left: 0px;
+                            ">
+                                            <div class="col">
+                                                <mat-form-field class="example-form-field">
+                                                    <mat-label>Divisa</mat-label>
+                                                    <input matInput placeholder="Divisa" formControlName="divisa" />
+                                                    <button mat-button type="button" *ngIf="controlT.controls.divisa.value" matSuffix mat-icon-button aria-label="Clear" (click)="controlT.controls.divisa.setValue('')">
+                                                <mat-icon>close</mat-icon>
+                                            </button>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="Tipo Operación" formControlName="tipoOperacion">
+                                                        <mat-option *ngFor="let tipo of tipoOperaciones" [value]="tipo.id">{{ tipo.descripcion }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col">
+                                                <mat-form-field class="example-form-field">
+                                                    <mat-label>Punto de Entrada</mat-label>
+                                                    <input type="number" matInput placeholder="Punto de Entrada" formControlName="puntoEntrada" />
+                                                    <button mat-button type="button" *ngIf="controlT.controls.puntoEntrada.value" matSuffix mat-icon-button aria-label="Clear" (click)="controlT.controls.puntoEntrada.setValue('')">
+                                                <mat-icon>close</mat-icon>
+                                            </button>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12" style="
+                                padding-right: 0px;
+                                padding-left: 0px;
+                                margin-right: 0px;
+                                margin-left: 0px;
+                            ">
+                                            <div class="col">
+                                                <mat-form-field class="example-form-field">
+                                                    <mat-label>Take Profit</mat-label>
+                                                    <input type="number" matInput placeholder="Take Profit" formControlName="takeProfit" />
+                                                    <button mat-button type="button" *ngIf="controlT.controls.takeProfit.value" matSuffix mat-icon-button aria-label="Clear" (click)="controlT.controls.takeProfit.setValue('')">
+                                                <mat-icon>close</mat-icon>
+                                            </button>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col">
+                                                <mat-form-field class="example-form-field">
+                                                    <mat-label>Stop Loss</mat-label>
+                                                    <input type="number" matInput placeholder="Stop Loss" formControlName="stopLoss" />
+                                                    <button mat-button type="button" *ngIf="controlT.controls.stopLoss.value" matSuffix mat-icon-button aria-label="Clear" (click)="controlT.controls.stopLoss.setValue('')">
+                                                <mat-icon>close</mat-icon>
+                                            </button>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col" style="padding-top: 4px;left: 0px; padding-left: 0px;">
+                                                <button mat-stroked-button class="btn btn-outline-danger" (click)="deleteControlTrades(i)" title="Borrar Trade">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+
+        <div class="row plan">
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col animate__animated animate__fadeInLeft">
+                <mat-card style="    height: auto;
+                        max-height: 630px;
+                        overflow-y: auto;">
+                    <mat-card-header style="background-color: #B6AF9C; border-radius: 10px">
+                        <mat-card-title class="animate__animated animate__bounce animate__delay-2s">
+                            <h4 style="color: #fff; margin-top: 15px; text-align: center">
+                                <label class="disminuir">Notas</label>&nbsp;
+                                <mat-icon style="float: right;cursor: pointer; font-size: xx-large;" (click)="addControlNote()" matTooltip="+ Añadir Nota" matTooltipPosition="above" matTooltipClass="example-tooltipPT">note_add</mat-icon>
+                            </h4>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <br>
+                        <div class="row" formArrayName="controlNote">
+                            <div class="col " [formGroupName]="i" *ngFor="let controlN of getControlsN(); let i = index" style="margin-bottom: 5px;">
+                                <mat-card class="example-card">
+                                    <mat-card-content>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12" style="
+                                        padding-right: 0px;
+                                        padding-left: 0px;
+                                        margin-right: 0px;
+                                        margin-left: 0px;
+                                    ">
+                                            <div class="col col-">
+                                                <mat-form-field class="example-form-field">
+                                                    <mat-label>Título de la Nota</mat-label>
+                                                    <input matInput placeholder="Título" formControlName="title" />
+                                                    <button mat-button type="button" *ngIf="controlN.controls.title.value" matSuffix mat-icon-button aria-label="Clear" (click)="controlN.controls.title.setValue('')">
+                                                        <mat-icon>close</mat-icon>
+                                                    </button>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12" style="
+                                        padding-right: 0px;
+                                        padding-left: 0px;
+                                        margin-right: 0px;
+                                        margin-left: 0px;
+                                    ">
+                                            <div class="col">
+                                                <mat-form-field>
+                                                    <mat-label>Descripción de la Nota</mat-label>
+                                                    <textarea matInput placeholder="Descripción de la Nota" formControlName="note"></textarea>
+                                                    <button mat-button type="button" *ngIf="controlN.controls.note.value" matSuffix mat-icon-button aria-label="Clear" (click)="controlN.controls.note.setValue('')">
+                                                    <mat-icon>close</mat-icon>
+                                                </button>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                    <mat-card-actions style="margin-bottom: 0px !important;">
+                                        <div class="row col-lg-12 col-md-12 col-sm-12" style="
+                                padding-right: 0px;
+                                padding-left: 0px;
+                                margin-right: 0px;
+                                margin-left: 0px;
+                            ">
+                                            <div class="col col-lg-9 col-lg-9 col-lg-9">
+                                                <input class="form-control" type="datetime-local" placeholder="Fecha Creación Nota" formControlName="fechaNota">
+                                            </div>
+                                            <div class="col col-lg-1 col-lg-1 col-lg-1 delete">
+                                                <button mat-stroked-button class="btn btn-outline-danger" (click)="deleteControlNotes(i)" title="Borrar Nota">
+                                                    <mat-icon>delete</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </mat-card-actions>
+                                </mat-card>
+                            </div>
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+        <div class="row col-lg-12 col-md-12 col-sm-12" style="padding-right: 0px;
+        padding-left: 0px;
+        margin-left: 0px;
+        margin-right: 0px;">
+            <label class="col-lg-4 col-md-4 col-sm-4 col-form-label">&nbsp;</label>
+            <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                <button type="submit" id="btnGuardar" class="btn btn-outline-primary btn-block">
+                    Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

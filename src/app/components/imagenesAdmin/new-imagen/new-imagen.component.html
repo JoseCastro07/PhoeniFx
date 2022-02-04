@@ -1,0 +1,126 @@
+<mat-card class="new-imagen-container" style="position: relative!important;">
+    <form autocomplete="off" [formGroup]="newImagenForm" (ngSubmit)="newImagen()">
+        <button mat-icon-button title="Cerrar" [mat-dialog-close]="true" style="position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    line-height: 14px;
+    min-width: auto;">
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
+          </button>
+        <mat-card-header>
+            <mat-card-title>
+                <h2 style="text-align: center">
+                    <label>Nueva Imagen</label>
+                </h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="margin-bottom: 0px">
+            <mat-form-field class="example-form-field">
+                <mat-label>Título de la Imagen</mat-label>
+                <input matInput placeholder="Título de la imagen" id="txtTitulo" formControlName="titulo" [class.is-invalid]="validaControl('titulo')" required />
+                <button mat-button type="button" *ngIf="newImagenForm.get('titulo').value" matSuffix mat-icon-button aria-label="Clear" (click)="newImagenForm.get('titulo').setValue('')">
+                <mat-icon>close</mat-icon>
+            </button>
+                <mat-error *ngIf="validaControl('titulo')">
+                    El título es <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Descripción de la Imagen</mat-label>
+                <textarea matInput id="txtDescripcion" placeholder="Descripción de la Imagen" formControlName="descripcion" [class.is-invalid]="validaControl('descripcion')" required></textarea>
+                <button mat-button type="button" *ngIf="newImagenForm.get('descripcion').value" matSuffix mat-icon-button aria-label="Clear" (click)="newImagenForm.get('descripcion').setValue('')">
+                <mat-icon>close</mat-icon>
+            </button>
+                <mat-error *ngIf="validaControl('descripcion')">
+                    La descripción es <strong>requerida</strong>
+                </mat-error>
+            </mat-form-field>
+            <div class="row col-lg-12 col-md-12 col-sm-12" style="margin-left: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-right: 0px;">
+                <div class="col col-lg-4 col-md-4 col-sm-4" style="padding-left: 0px;bottom: 0px;">
+                    <mat-form-field>
+                        <mat-select placeholder="Tipo" formControlName="tipoImagen">
+                            <mat-option *ngFor="let tipo of tipos" [value]="tipo.id">{{ tipo.descripcion }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4 archivo" *ngIf="newImagenForm.get('tipoImagen').value !== 3">
+                    <input type="file" style="display: none" formControlName="nombreImagen" #file (change)="onChangeFileArchivo(($event?.target?.files)[0])" accept="image/*" required />
+                    <button type="button" mat-raised-button id="adjuntoImagen" color="accent" class="file-select-button" (click)="file.click()" title="Buscar Imagen"><mat-icon>add_to_photos</mat-icon></button>
+                    <p class="text-left" class="validarI" *ngIf="validaImagen; else fileName">
+                        La imagen es <strong>requerida</strong>
+                    </p>
+                    <ng-template #fileName>
+                        <p class="text-left">{{ fileImagen?.name }}</p>
+                    </ng-template>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4 archivo" *ngIf="newImagenForm.get('tipoImagen').value === 3">
+                    <input type="file" style="display: none" formControlName="nombreImagen" #file (change)="onChangeFileArchivo(($event?.target?.files)[0])" accept="image/*,video/*" required />
+                    <button type="button" mat-raised-button id="adjuntoImagen" color="accent" class="file-select-button" (click)="file.click()" title="Buscar Imagen o Video"><mat-icon>ondemand_video</mat-icon></button>
+                    <p class="text-left" class="validarI" *ngIf="validaImagen; else fileName">
+                        El archivo es <strong>requerido</strong>
+                    </p>
+                    <ng-template #fileName>
+                        <p class="text-left">{{ fileImagen?.name }}</p>
+                    </ng-template>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4 estado" style="padding-top: 15px;left: 20px;">
+                    <mat-slide-toggle color="primary" formControlName="estado">Estado: {{ newImagenForm.get("estado").value ? "Activo" : "Inactivo" }}
+                    </mat-slide-toggle>
+                </div>
+            </div>
+            <div class="row col-lg-12 col-md-12 col-sm-12" *ngIf="newImagenForm.get('tipoImagen').value === 3">
+                <div class="col col-lg-12 col-md-12 col-sm-12" style="padding-left: 0px;bottom: 0px;">
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Url</mat-label>
+                        <input matInput placeholder="Url" id="txtUrl" formControlName="urlA" />
+                        <button mat-button type="button" *ngIf="newImagenForm.get('urlA').value" matSuffix mat-icon-button aria-label="Clear" (click)="newImagenForm.get('urlA').setValue('')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                        <mat-error *ngIf="validaControl('titulo')">
+                            El título es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-card *ngIf="progress !== 0 && progress !== 100">
+                <mat-card-content>
+                    <h2 class="example-h2">Cargando...</h2>
+
+                    <section class="example-section">
+                        <div class="posicionI">
+                            <mat-progress-bar class="example-margin" color="accent" mode="buffer" [value]="progress">
+                            </mat-progress-bar>
+                            <div style="position: absolute">
+                                <h6>{{ progress }}%</h6>
+                            </div>
+                        </div>
+                    </section>
+                </mat-card-content>
+            </mat-card>
+            <hr />
+        </mat-card-content>
+        <mat-card-actions style="margin-bottom: 0px !important;">
+            <div class="row col-lg-12 col-md-12 col-sm-12" style="padding-right: 0px;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: 0px;">
+                <label class="col-lg-4 col-md-4 col-sm-4 col-form-label">&nbsp;</label>
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <button type="submit" id="btnGuardar" class="btn btn-outline-primary btn-block">
+                Guardar
+            </button>
+                </div>
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <label for=""></label>
+                    <button type="button" id="btnCancelar" (click)="cancelarTask()" class="btn btn-outline-danger btn-block" [mat-dialog-close]>
+                Cancelar
+            </button>
+                </div>
+            </div>
+        </mat-card-actions>
+    </form>
+</mat-card>

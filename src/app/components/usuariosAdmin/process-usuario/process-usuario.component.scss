@@ -1,0 +1,34 @@
+@import "src/scss/variables";
+@import "src/scss/helpers";
+.process-usuario-container {
+    display: flex;
+    flex-direction: column;
+    top: 0px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-top: 14px !important;
+    padding-bottom: 15px !important;
+    input[type="file"] {
+        display: none;
+    }
+    input.mat-flat-button {
+        @include button_full($button_purpure);
+    }
+    margin: 2rem 0;
+    div {
+        width: 100%;
+    }
+    .example-full-width {
+        width: 100%;
+    }
+    .posicionV {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .mat-card-header {
+        justify-content: start;
+    }
+}

@@ -1,0 +1,181 @@
+<mat-card class="edit-video-container" style="position: relative!important;">
+    <form autocomplete="off" [formGroup]="editVideoForm" (ngSubmit)="editVideo()">
+        <button mat-icon-button title="Cerrar" [mat-dialog-close]="true" style="position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    line-height: 14px;
+    min-width: auto;">
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
+          </button>
+        <mat-card-header>
+            <mat-card-title>
+                <h2 style="text-align: center">
+                    <label>Editar Video</label>
+                </h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="margin-bottom: 0px">
+            <mat-form-field>
+                <mat-label>Nombre del Video</mat-label>
+                <input matInput placeholder="Nombre del video" id="txtNombre" formControlName="nombre" required />
+                <button mat-button type="button" *ngIf="editVideoForm.get('nombre').value" matSuffix mat-icon-button aria-label="Clear" (click)="editVideoForm.get('nombre').setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+                <mat-error *ngIf="validaControl('nombre')">
+                    El nombre es <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Descripción del video</mat-label>
+                <textarea matInput placeholder="Descripción del video" id="txtDescripcion" formControlName="descripcion" required></textarea>
+                <button mat-button type="button" *ngIf="editVideoForm.get('descripcion').value" matSuffix mat-icon-button aria-label="Clear" (click)="editVideoForm.get('descripcion').setValue('')">
+                <mat-icon>close</mat-icon>
+              </button>
+                <mat-error *ngIf="validaControl('descripcion')">
+                    La descripción es <strong>requerida</strong>
+                </mat-error>
+            </mat-form-field>
+            <hr />
+            <div formArrayName="controlLink">
+                <div [formGroupName]="i" *ngFor="let controlL of getControls(); let i = index">
+                    <div class="row col-lg-12 col-md-12 col-sm-12">
+                        <div class="col col-lg-12 col-md-12 col-sm-12" style="left: 0px; padding-left: 0px">
+                            <mat-form-field class="example-form-field">
+                                <mat-label>Nombre Url</mat-label>
+                                <input type="text" id="txtNombre_{{ i }}" matInput formControlName="nombre" placeholder="Nombre Url" required />
+                                <mat-error *ngIf="validaN || (controlL.controls.nombre.invalid && controlL.controls.nombre.touched)">El nombre de la url es <strong>necesaria</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row col-lg-12 col-md-12 col-sm-12" style="padding-left: 0px">
+                        <div class="col col-lg-11 col-md-11 col-sm-11">
+                            <mat-form-field class="example-form-field">
+                                <mat-label>Url</mat-label>
+                                <input type="text" id="txtUrl_{{ i }}" matInput formControlName="url" placeholder="Url" required />
+                                <mat-error *ngIf="validaU || (controlL.controls.url.invalid && controlL.controls.url.touched)">La url es <strong>necesaria</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col col-lg-1 col-md-1 col-sm-1" style="padding-top: 10px">
+                            <button mat-stroked-button class="btn btn-outline-danger" (click)="deleteControlLinks(i)" title="Borrar">
+          <mat-icon>delete</mat-icon>
+        </button>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+            <div class="col col-lg-3 col-md-3 col-sm-3" style="top: 5px;">
+                <button type="button" class="btn btn-outline-success btn-block" (click)="addControlLinks()">
+        + Añadir Link
+      </button>
+            </div>
+            <hr />
+            <div class="row col-lg-12 col-md-12 col-sm-12">
+                <div class="col col-lg-4 col-md-4 col-sm-4" style="padding-left: 0px">
+                    <mat-form-field>
+                        <mat-select placeholder="Sección" formControlName="codigoSeccion">
+                            <mat-option *ngFor="let seccion of secciones" [value]="seccion.id">{{ seccion.descripcion }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4 nombreE" style="left: 15px">
+                    <mat-form-field>
+                        <mat-select placeholder="Etapa" formControlName="idEtapa">
+                            <mat-option *ngFor="let etap of etapa" [value]="etap.idEtapa">{{ etap.descripcion }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4 posicionNV" style="left: 45px">
+                    <mat-form-field>
+                        <mat-select placeholder="Posición Video" formControlName="posicionVideo">
+                            <mat-option *ngFor="let vid of videos" [value]="vid.posicionVideo">{{ vid.posicionVideo }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row col-lg-12 col-md-12 col-sm-12" style="top: 10px;">
+                <div class="col col-lg-4 col-md-4 col-sm-4" style="padding-left: 0px">
+                    <input type="file" style="display: none" #fileV (change)="onChangeFileVideo(($event?.target?.files)[0])" accept="video/*" />
+                    <button type="button" mat-raised-button id="adjuntoVideo" color="accent" class="file-select-button" (click)="fileV.click()" title="Buscar Video">
+          <mat-icon>ondemand_video</mat-icon>
+        </button>
+                    <p class="text-left" *ngIf="!fileVideo; else fileNameV">
+                        {{ nombreActualV }}
+                    </p>
+                    <ng-template #fileNameV>
+                        <p class="file-name">{{ fileVideo?.name }}</p>
+                    </ng-template>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4" style="left: 15px">
+                    <input type="file" style="display: none" #fileA (change)="onChangeFileArchivo(($event?.target?.files)[0])" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-word.document.macroEnabled.12,text/plain"
+                    />
+                    <button type="button" mat-raised-button id="adjuntoArchivo" color="warn" class="file-select-button" (click)="fileA.click()" title="Buscar Archivo">
+          <mat-icon>picture_as_pdf</mat-icon>
+        </button>
+                    <p class="text-left" *ngIf="!fileAdjunto; else fileNameA">
+                        {{ nombreActualA }}
+                    </p>
+                    <ng-template #fileNameA>
+                        <p class="file-name">{{ fileAdjunto?.name }}</p>
+                    </ng-template>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4 estado" style="left: 45px; padding-top: 0px">
+                    <mat-slide-toggle color="primary" formControlName="estado">Estado: {{ editVideoForm.get("estado").value ? "Activo" : "Inactivo" }}
+                    </mat-slide-toggle>
+                </div>
+            </div>
+            <mat-card *ngIf="progressV !== 0 && progressV !== 100">
+                <mat-card-content>
+                    <h2 class="example-h2">Cargando Video</h2>
+
+                    <section class="example-section">
+                        <div class="posicionVA">
+                            <mat-progress-bar class="example-margin" color="accent" mode="buffer" [value]="progressV">
+                            </mat-progress-bar>
+                            <div style="position: absolute">
+                                <h6>{{ progressV }}%</h6>
+                            </div>
+                        </div>
+                    </section>
+                </mat-card-content>
+            </mat-card>
+            <mat-card *ngIf="progressA !== 0 && progressA !== 100">
+                <mat-card-content>
+                    <h2 class="example-h2">Cargando Archivo</h2>
+
+                    <section class="example-section">
+                        <div class="posicionVA">
+                            <mat-progress-bar class="example-margin" color="warn" mode="buffer" [value]="progressA">
+                            </mat-progress-bar>
+                            <div style="position: absolute">
+                                <h6>{{ progressA }}%</h6>
+                            </div>
+                        </div>
+                    </section>
+                </mat-card-content>
+            </mat-card>
+            <hr />
+        </mat-card-content>
+        <mat-card-actions style="margin-bottom: 0px !important;">
+            <div class="row col-lg-12 col-md-12 col-sm-12" style="padding-right: 0px;
+        padding-left: 0px;
+        margin-left: 0px;
+        margin-right: 0px;">
+                <label class="col-lg-4 col-md-4 col-sm-4 col-form-label">&nbsp;</label>
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <button type="submit" id="btnEditar" class="btn btn-outline-primary btn-block">
+          Editar
+        </button>
+                </div>
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <label for=""></label>
+                    <button type="button" (click)="cancelarTask()" class="btn btn-outline-danger btn-block" [mat-dialog-close]>
+          Cancelar
+        </button>
+                </div>
+            </div>
+        </mat-card-actions>
+    </form>
+</mat-card>

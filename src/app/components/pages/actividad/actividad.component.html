@@ -1,0 +1,64 @@
+<!-- <link href="https://unpkg.com/bootstrap-css-only@4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://unpkg.com/@fortawesome/fontawesome-free@5.15.1/css/all.css" rel="stylesheet" />
+<link href="https://unpkg.com/angular-calendar@0.28.22/css/angular-calendar.css" rel="stylesheet" />
+<link href="https://unpkg.com/flatpickr@4.6.6/dist/flatpickr.css" rel="stylesheet" /> -->
+<div class="row col-lg-12 col-md-12 col-sm-12 animate__animated animate__fadeInDown main_containerA" [ngClass]="{
+    ocultar: !isDataAvailable
+  }">
+    <div class="col col-lg-12 col-md-12 col-sm-12 text-center" style="padding-right: 0px;top: 10px;
+    margin-bottom: 20px;">
+        <div class="btn-group">
+            <div class="btn btn-primary" (click)="vista(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+                Mes
+            </div>
+            <div class="btn btn-primary" (click)="vista(CalendarView.Week)" [class.active]="view === CalendarView.Week">
+                Semana
+            </div>
+            <div class="btn btn-primary" (click)="vista(CalendarView.Day)" [class.active]="view === CalendarView.Day">
+                Día
+            </div>
+        </div>
+        <h3>{{ viewDate | calendarDate: view + "ViewTitle":locale }}</h3>
+        <div class="btn-group">
+            <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+                Anterior
+            </div>
+            <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+                Actual
+            </div>
+            <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+                Siguiente
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div [ngClass]="{
+            fechaActiva: day.events.length >= 1 && day.date.getTime() >= fechaA.getTime(),
+            fechaActual: day.date.toString() === fechaA.toString()
+          }">
+        <div class="cal-cell-top">
+            <span class="cal-day-badge" *ngIf="day.badgeTotal > 0 && day.date.getTime() >= fechaA.getTime()">{{
+                day.badgeTotal
+                }}</span>
+            <span class="cal-day-number">{{
+                day.date | calendarDate: "monthViewDayNumber":locale
+                }}</span>
+        </div>
+        <small *ngIf="day.events.length === 1" style="margin: 5px">{{ day.events.length }} evento</small>
+        <small *ngIf="day.events.length !== 1" style="margin: 5px">{{ day.events.length }} eventos</small>
+    </div>
+</ng-template>
+<div [ngSwitch]="view" class="viewA animate__animated animate__fadeInDown" style="overflow: auto;" [ngClass]="{
+    ocultar: !isDataAvailable
+  }">
+    <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [locale]="locale" [events]="events" [cellTemplate]="customCellTemplate" (dayClicked)="buscarActividadM($event.day)" [refresh]="refresh">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [locale]="locale" [events]="events" (eventClicked)="buscarActividadWD($event.event)" [refresh]="refresh">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [locale]="locale" [events]="events" (eventClicked)="buscarActividadWD($event.event)" [refresh]="refresh">
+    </mwl-calendar-day-view>
+</div>
+<br>
+<br>

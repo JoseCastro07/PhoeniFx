@@ -1,0 +1,65 @@
+@import "src/scss/variables";
+@import "src/scss/helpers";
+.edit-usuario-container {
+    display: flex;
+    flex-direction: column;
+    form {
+        input[type="file"] {
+            display: none;
+        }
+        input.mat-flat-button {
+            @include button_full($button_purpure);
+        }
+        .custom-file {
+            border: 1px solid $file_white;
+            display: inline-block;
+            padding: 6px 0;
+            cursor: pointer;
+            width: 100%;
+        }
+        .container-input-file {
+            margin: 2rem 0;
+        }
+        .container-button {
+            min-height: 80px;
+        }
+        mat-form-field {
+            width: 100%;
+        }
+        .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+            border-color: #673ab7;
+        }
+        .mat-radio-button.mat-accent .mat-radio-inner-circle,
+        .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+        .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+        .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+            background-color: #673ab7;
+        }
+    }
+    @media only screen and (max-width: 575px) {
+        .input-group {
+            display: grid !important;
+        }
+        .estado {
+            padding-left: 0px !important;
+            top: 0px !important;
+        }
+        .tipo {
+            top: 15px !important;
+            padding-left: 0px !important;
+        }
+        .codigo {
+            top: 15px !important;
+        }
+    }
+    .estado {
+        top: 15px;
+    }
+    .example-tooltipE {
+        font-size: small;
+        text-align: center;
+    }
+    .esconderControles {
+        display: none !important;
+    }
+}

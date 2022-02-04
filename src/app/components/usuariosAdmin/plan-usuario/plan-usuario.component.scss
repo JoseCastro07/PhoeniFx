@@ -1,0 +1,37 @@
+.plan {
+    padding-bottom: 20px !important;
+    background-color: #fff !important;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.mat-slider-horizontal {
+    width: auto !important;
+}
+
+@media only screen and (max-width: 575px) {
+    .bajar {
+        top: 5px !important;
+    }
+    .fechaP {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+@media only screen and (max-height: 920px) {
+    .mat-dialog-container {
+        width: auto !important;
+        height: auto !important;
+        position: fixed !important;
+        top: 66px !important;
+        right: 0px !important;
+        left: 0px !important;
+        margin-right: 15px !important;
+        margin-left: 15px !important;
+        bottom: 30px !important;
+        z-index: 1060 !important;
+    }
+}

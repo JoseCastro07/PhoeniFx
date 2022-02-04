@@ -1,0 +1,93 @@
+@import "src/scss/variables";
+@import "src/scss/helpers";
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    form {
+        input[type="file"] {
+            display: none;
+        }
+        input.mat-flat-button {
+            @include button_full($button_purpure);
+        }
+        mat-form-field {
+            width: 100%;
+        }
+        .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+            border-color: #673ab7;
+        }
+        .mat-radio-button.mat-accent .mat-radio-inner-circle,
+        .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+        .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+        .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+            background-color: #673ab7;
+        }
+    }
+    .pagoP {
+        padding-left: 0px !important;
+    }
+    @media only screen and (max-width: 575px) {
+        .input-group {
+            display: grid !important;
+        }
+        .pagoP {
+            padding-left: 15px !important;
+        }
+        .lbquitar {
+            display: flex !important;
+        }
+        .cancelar {
+            margin-left: 0px !important;
+        }
+    }
+    #chxTermino {
+        .mat-checkbox-layout {
+            margin-bottom: 4px !important;
+            margin-right: 8px !important;
+            margin-top: 0px !important;
+        }
+    }
+    .example-tooltipP {
+        font-size: small;
+        text-align: center;
+    }
+    .animate__animated {
+        animation-fill-mode: none !important;
+    }
+}
+
+@media only screen and (max-height: 900px) and (max-width: 575px) {
+    @at-root .cdk-overlay-pane {
+        margin-top: 155px !important;
+    }
+}
+
+@media only screen and (max-height: 770px) and (max-width: 575px) {
+    .mat-dialog-container {
+        width: auto !important;
+        height: auto !important;
+        position: fixed !important;
+        top: 66px !important;
+        right: 0px !important;
+        left: 0px !important;
+        margin-right: 15px !important;
+        margin-left: 15px !important;
+        bottom: 235px !important;
+        z-index: 1060 !important;
+    }
+}
+
+@media only screen and (max-height: 595px) {
+    .mat-dialog-container {
+        width: auto !important;
+        height: auto !important;
+        position: fixed !important;
+        top: 66px !important;
+        right: 0px !important;
+        left: 0px !important;
+        margin-right: 15px !important;
+        margin-left: 15px !important;
+        bottom: 65px !important;
+        z-index: 1060 !important;
+    }
+}

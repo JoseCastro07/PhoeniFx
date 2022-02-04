@@ -1,0 +1,60 @@
+<mat-card class="paypal-container animate__animated animate__fadeInLeft">
+    <button mat-icon-button title="Cerrar" [mat-dialog-close]="true" style="position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    line-height: 14px;
+    min-width: auto;">
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
+          </button>
+    <mat-card-header>
+        <mat-card-title>
+            <h2 style="text-align: center">
+                <label>Método de Pago</label>
+            </h2>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="margin-bottom: 0px">
+        <div class="row col-lg-12 col-md-12 col-sm-12" style="margin-left: 0px;
+margin-right: 0px;
+padding-left: 0px;
+padding-right: 0px;
+">
+            <div class="col-sm-12 col-md-12 col-lg-12"><strong style="float: left;">Producto</strong><strong style="float: right;">Precio</strong></div>
+        </div>
+        <hr>
+        <div class="row col-lg-12 col-md-12 col-sm-12" style="margin-left: 0px;
+margin-right: 0px;
+padding-left: 0px;
+padding-right: 0px;
+">
+            <div class="col-sm-12 col-md-12 col-lg-12">{{tipoPlan}}
+                <font style="float: right;">${{precio}},00 USD</font>
+            </div>
+        </div>
+        <hr>
+        <div #paypal>
+        </div>
+        <div class="de elImageWrapper de-image-block elAlign_center elMargin0 ui-droppable de-editable" id="tmp_image-72006" data-de-type="img" data-de-editing="false" data-title="image" data-ce="false" data-trigger="none" data-animate="fade" data-delay="500"
+            style="outline: none; display: block;text-align: center;" aria-disabled="false">
+            <img src="https://www.clickfunnels.com/images/credit-only.png" class="elIMG ximg" width="200" data-src="https://www.clickfunnels.com/images/credit-only.png" tabindex="0">
+        </div>
+        <hr>
+    </mat-card-content>
+    <mat-card-actions style="margin-bottom: 0px !important;">
+        <div class="row col-lg-12 col-md-12 col-sm-12" style="margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 5px;
+    ">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <mat-spinner [diameter]="50" style="display: contents !important;" *ngIf="procesando" title="Procesando..." class="payP"></mat-spinner>
+                <button mat-raised-button type="button" class="btn" color="warn" [mat-dialog-close] style="float: right;
+                top: 5px;">
+                Volver
+            </button>
+            </div>
+        </div>
+    </mat-card-actions>
+</mat-card>

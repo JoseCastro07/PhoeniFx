@@ -1,0 +1,45 @@
+<form (ngSubmit)="onSaveUser(profileForm.value)" [formGroup]="profileForm" class="animate__animated animate__fadeInDown">
+    <h2 style="text-align: center;">Perfil de Usuario</h2>
+    <mat-card class="profile-card">
+        <mat-card-header>
+            <div class="label bottom" style="cursor: pointer;margin-left: 0px;
+            margin-right: 0px;">
+                <p>Cambiar</p>
+                <img [src]="currentImage" (click)="inputImageProfile.click()" class="photo" />
+                <input hidden type="file" id="imagen" #inputImageProfile accept="image/*" (change)="handleImage(($event?.target?.files)[0])" />
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Nombre de Usuario" id="txtNombre" formControlName="nombre" [class.is-invalid]="ValidaNombre()" required />
+                <button mat-button type="button" *ngIf="profileForm.get('nombre').value" matSuffix mat-icon-button aria-label="Clear" (click)="profileForm.get('nombre').setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+                <mat-error *ngIf="ValidaNombre()">
+                    El nombre es <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+            <hr />
+            <div class="row col-lg-12 col-md-12 col-sm-12" style="padding-left: 0px;
+            padding-right: 0px;
+            margin-left: 0px;
+            margin-right: 0px;">
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <mat-spinner [diameter]="40" *ngIf="cargando" title="Cargando..."></mat-spinner>
+                </div>
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <button type="submit" id="btnSalvar" class="btn btn-outline-primary btn-block">
+            Salvar
+          </button>
+                </div>
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <label for=""></label>
+                    <button type="button" id="btnCancelar" class="btn btn-outline-danger btn-block" [mat-dialog-close]>
+            Cancelar
+          </button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>

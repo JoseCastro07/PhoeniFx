@@ -1,0 +1,121 @@
+<mat-card class="new-usuario-container" style="position: relative!important;" (window:resize)="onResize($event)">
+    <form autocomplete="off" [formGroup]="newUsuarioForm" (ngSubmit)="addNewUsuario()">
+        <button mat-icon-button title="Cerrar" [mat-dialog-close]="true" style="position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    line-height: 14px;
+    min-width: auto;">
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
+          </button>
+        <mat-card-header>
+            <mat-card-title>
+                <h2 style="text-align: center">
+                    <label>Usuario Nuevo</label>
+                </h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="margin-bottom: 0px">
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input matInput id="txtNombre" placeholder="Nombre de Usuario" formControlName="nombre" [class.is-invalid]="validaControl('nombre')" required />
+                <button mat-button type="button" *ngIf="newUsuarioForm.get('nombre').value" matSuffix mat-icon-button aria-label="Clear" (click)="newUsuarioForm.get('nombre').setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+                <mat-error *ngIf="validaControl('nombre')">
+                    El nombre es <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Correo electrónico</mat-label>
+                <input type="email" matInput id="txtCorreo" formControlName="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [errorStateMatcher]="matcher" placeholder="Ejm. pil@example.com" autocomplete="username" required />
+                <button mat-button type="button" *ngIf="newUsuarioForm.get('email').value" matSuffix mat-icon-button aria-label="Clear" (click)="newUsuarioForm.get('email').setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+                <mat-error *ngIf="validoCorreo1">
+                    Ingrese un correo electrónico <strong>válido</strong>
+                </mat-error>
+                <mat-error *ngIf="validoCorreo2">
+                    Correo electrónico <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+            <div class="row col-lg-12 col-md-12 col-sm-12">
+                <div class="col col-lg-8 col-md-8 col-sm-8" style="padding-left: 0px">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" id="txtPassword" formControlName="password" [class.is-invalid]="validaControl('password')" autocomplete="current-password" pattern="[A-Za-z][A-Za-z0-9]*[0-9][A-Za-z0-9]*" matTooltip="La contraseña debe tener mínimo 8 caracteres, empezar con una letra y contener al menos un dígito."
+                            matTooltipPosition="below" matTooltipClass="example-tooltipN" required />
+                        <button mat-button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+                        <mat-error *ngIf="validaControl('password')">
+                            La contraseña es <strong>requerida</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4 fecha">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Fecha de Pago</mat-label>
+                        <input matInput [matDatepicker]="dp3" [formControl]="fecha" [max]="fechaSistema" />
+                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                        <mat-datepicker #dp3 disabled="false" [touchUi]="calendario"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row col-lg-12 col-md-12 col-sm-12">
+                <div class="col col-lg-4 col-md-4 col-sm-4" style="padding-left: 0px">
+                    <mat-form-field>
+                        <mat-select placeholder="Rol" formControlName="rol" (selectionChange)="rolSeleccionado()">
+                            <mat-option value="1.gxp12jt$l#">Administrador</mat-option>
+                            <mat-option value="02clie2">Cliente</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4 estado" [ngClass]="{esconderControles :activaControles }">
+                    <mat-slide-toggle color="primary" formControlName="estado">Pago: {{ newUsuarioForm.get("estado").value ? "Cancelado" : "Pendiente" }}
+                    </mat-slide-toggle>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4 tipo" [ngClass]="{esconderControles :activaControles }">
+                    <mat-form-field>
+                        <mat-select placeholder="Tipo de Plan" formControlName="tipoPlan">
+                            <mat-option value="01sta1">Plan Standard</mat-option>
+                            <mat-option value="02pre2">Plan Premium</mat-option>
+                            <!-- <mat-option value="03met3">Plan Metamorphosis</mat-option> -->
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row col-lg-12 col-md-12 col-sm-12" [ngClass]="{esconderControles :activaControles }">
+                <div class="col col-lg-4 col-md-4 col-sm-4" style="padding-left: 0px">
+                    <mat-form-field>
+                        <mat-label>Código de Referido</mat-label>
+                        <input matInput type="text" placeholder="Código de Referido" formControlName="codigoR" />
+                        <button mat-button type="button" *ngIf="newUsuarioForm.get('codigoR').value" matSuffix mat-icon-button aria-label="Clear" (click)="newUsuarioForm.get('codigoR').setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+                    </mat-form-field>
+                </div>
+            </div>
+            <hr />
+        </mat-card-content>
+        <mat-card-actions style="margin-bottom: 0px !important;">
+            <div class="row col-lg-12 col-md-12 col-sm-12" style="padding-right: 0px;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: 0px;">
+                <label class="col-lg-4 col-md-4 col-sm-4 col-form-label">&nbsp;</label>
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <button type="submit" id="btnGuardar" class="btn btn-outline-primary btn-block">
+      Guardar
+    </button>
+                </div>
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <label for=""></label>
+                    <button type="button" class="btn btn-outline-danger btn-block" [mat-dialog-close]>
+      Cancelar
+    </button>
+                </div>
+            </div>
+        </mat-card-actions>
+    </form>
+</mat-card>

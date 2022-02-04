@@ -1,0 +1,48 @@
+    @import "src/scss/variables";
+    /* Structure */
+    
+    table {
+        width: 100%;
+    }
+    /*
+.mat-form-field {
+    font-size: 1rem;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 1rem;
+}*/
+    
+    .btnAct {
+        width: 30%;
+    }
+    
+    .tabla {
+        margin-top: 10px;
+        margin-right: 10px;
+        margin-left: 0px;
+    }
+    
+    .example-table-container {
+        position: relative;
+        max-height: 500px;
+        overflow: auto;
+    }
+    
+    .ocultar {
+        display: none !important;
+    }
+    
+    @media only screen and (max-width: 1300px) {
+        .btnAct {
+            width: 100% !important;
+        }
+    }
+    
+    .mat-checkbox-layout {
+        margin-top: 5px !important;
+        margin-right: 10px !important;
+    }
+    /*
+    .cdk-overlay-pane {
+        margin-top: 80px !important;
+    }*/

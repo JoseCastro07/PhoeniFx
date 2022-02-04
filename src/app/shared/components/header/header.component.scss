@@ -1,0 +1,124 @@
+$topnav-background-color: #262f3d;
+:host {
+    .navbar {
+        background-color: $topnav-background-color;
+        height: 64px;
+        width: 100%;
+        left: 0;
+        top: 0;
+        position: fixed;
+        box-sizing: border-box;
+        .navbar-brand {
+            color: #fff;
+        }
+        .nav-item>a {
+            color: #999;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+    }
+    .navbar-default .navbar-nav>.open>a.dropdown-toggle {
+        background-color: #f4511e !important;
+    }
+    .logo {
+        width: 42px;
+        height: 42px;
+    }
+    .sistema {
+        background-color: #262f3d;
+        color: #fff;
+    }
+    .btnH {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: #262f3d
+    }
+    .top {
+        margin-top: 3px;
+    }
+    .administracion {
+        background-color: #262f3d;
+        color: #999;
+    }
+    .photo {
+        background-size: cover;
+        width: 32px;
+        height: 32px;
+        border-radius: 160px;
+    }
+    .navbar-collapse {
+        display: none;
+    }
+    .collapseH {
+        width: 100%;
+        background-color: $topnav-background-color;
+        display: block;
+    }
+    li {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    /*  a button {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }*/
+    .porcentaje {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .spinner {
+        position: absolute;
+        border: 1px solid white;
+        border-radius: 30px;
+        width: 55px !important;
+        height: 55px !important;
+    }
+    /*  @media only screen and (min-width: 991px) {
+        .collapseH {
+             margin-top: 0px !important;
+        }
+    }*/
+    @media only screen and (max-width: 991px) {
+        .collapseH {
+            margin-top: 4px !important;
+            overflow-y: auto !important;
+            max-height: 30vh !important;
+            margin-bottom: 10px !important;
+            border: 1px solid !important;
+        }
+        a button {
+            margin-top: 10px !important;
+            margin-bottom: 10px !important;
+        }
+        .admin {
+            bottom: 2px !important;
+        }
+        .lialerta {
+            margin-top: 20px !important;
+            margin-bottom: 20px !important;
+        }
+        .liporcentaje {
+            margin-top: 35px !important;
+            margin-bottom: 40px !important;
+        }
+    }
+    .disabled {
+        cursor: not-allowed;
+        pointer-events: none;
+        color: #6E757E !important;
+    }
+    .animate__animated {
+        animation-fill-mode: none !important;
+    }
+}

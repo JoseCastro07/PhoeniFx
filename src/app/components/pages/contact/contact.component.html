@@ -1,0 +1,73 @@
+<mat-card class="contact-container animate__animated animate__fadeInLeft">
+    <form autocomplete="off" [formGroup]="contactForm" (ngSubmit)="sendEmail()">
+        <button mat-icon-button title="Cerrar" [mat-dialog-close]="true" style="position: absolute;
+        top: 0;
+        right: 0;
+        padding: 5px;
+        line-height: 14px;
+        min-width: auto;">
+                <mat-icon class="close-icon" color="warn">close</mat-icon>
+              </button>
+        <mat-card-header style="justify-content: center;">
+            <mat-card-title>
+                <h2 style="text-align: center">
+                    <mat-icon style="font-size: xx-large">email</mat-icon>
+                </h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="margin-bottom: 0px">
+            <mat-form-field class="example-form-field">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Nombre" id="txtNombreC" formControlName="name" [class.is-invalid]="validaControl('name')" required />
+                <button mat-button type="button" *ngIf="contactForm.get('name').value" id="btnN" matSuffix mat-icon-button aria-label="Clear" (click)="contactForm.get('name').setValue('')">
+                <mat-icon>close</mat-icon>
+            </button>
+                <mat-error *ngIf="validaControl('name')">
+                    El nombre es <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Correo electrónico</mat-label>
+                <input type="email" matInput formControlName="emailF" id="txtEmailC" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [errorStateMatcher]="matcher" required />
+                <button mat-button type="button" *ngIf="contactForm.get('emailF').value" matSuffix mat-icon-button aria-label="Clear" (click)="contactForm.get('emailF').setValue('')">
+                <mat-icon>close</mat-icon>
+            </button>
+                <mat-error *ngIf="validoCorreo1">
+                    Correo electrónico <strong>inválido</strong>
+                </mat-error>
+                <mat-error *ngIf="validoCorreo2">
+                    Correo electrónico <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="tipo === 2" appearance="outline">
+                <mat-label>Mensaje</mat-label>
+                <textarea matInput placeholder="Mensaje" id="txtMensajeC" formControlName="message" [class.is-invalid]="validaControl('message')" required></textarea>
+                <button mat-button type="button" *ngIf="contactForm.get('message').value" matSuffix mat-icon-button aria-label="Clear" (click)="contactForm.get('message').setValue('')">
+                <mat-icon>close</mat-icon>
+            </button>
+                <mat-error *ngIf="validaControl('message')">
+                    El mensaje es <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+            <hr />
+        </mat-card-content>
+        <mat-card-actions style="margin-bottom: 0px !important;">
+            <div class="row col-lg-12 col-md-12 col-sm-12" style="padding-right: 0px;
+        padding-left: 0px;
+        margin-left: 0px;
+        margin-right: 0px;">
+                <div class="input-group col-lg-6 col-md-6 col-sm-6">
+                    <button type="submit" id="btnEnviar" class="btn btn-outline-primary btn-block">
+                    Enviar
+                </button>
+                </div>
+                <div class="input-group col-lg-6 col-md-6 col-sm-6 input-groupC">
+                    <label for=""></label>
+                    <button type="button" id="btnCancelar" class="btn btn-outline-danger btn-block" [mat-dialog-close]>
+                    Cancelar
+                </button>
+                </div>
+            </div>
+        </mat-card-actions>
+    </form>
+</mat-card>

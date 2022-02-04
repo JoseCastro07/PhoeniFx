@@ -1,0 +1,314 @@
+<app-header (link)="cambiarEstado($event)"></app-header>
+<section class="main-containerH animate__animated animate__fadeInDown">
+    <div class="row col-lg-12 col-md-12 col-sm-12" style="
+      position: relative;
+      background-color: transparent;
+      margin-left: 0px;
+      margin-right: 0px;
+    ">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px">
+            <video src="../../../../assets/videos/videoHome.mp4" type="video/mp4" autoplay [muted]="'muted'" preload="auto" width="100%" height="100%" loop style="max-height: auto !important; position: relative"></video>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 animate__animated animate__bounce animate__delay-1s descripcionV">
+            <h1 class="tituloV">Educación con propósito</h1>
+            <p class="subTituloV">Trading dentro y fuera de los gráficos</p>
+            <button mat-button class="btnV" (click)="sendInfo()">
+                Cinco pasos para iniciar
+                en el trading
+            </button>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 60px; margin-bottom: 60px">
+        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        <div class="col-lg-5 col-md-5 col-sm-5">
+            <div class="row col-lg-12 col-md-12 col-sm-12 descripcionH">
+                <h1 class="animate__animated animate__bounce animate__delay-1s" style="color: #262F3D; font-size: 45px">
+                    ¿Qué es
+                    <font>Phoeni</font>
+                    <font style="color: #C29E23;">F</font>
+                    <font>x?</font>
+                </h1>
+                <h6 style="text-align: justify">
+                    <br />
+                    <p>
+                        <span>Es una academia de trading que está transformando la educación en mercados financieros,
+                            implementando todo un sistema educativo integral con tres áreas de formación: trading,
+                            educación financiera y desarrollo personal. Trabajamos bajo metodologías de inmersión y
+                            aprendizaje en comunidad, creando espacios virtuales y presenciales para llevar la educación
+                            a su nivel más alto. </span>
+                    </p>
+                    <br />
+                    <p>
+                        <span>Nos distingue el apoyo y guías de estudio enfocadas en crecimiento y resultados, además de
+                            la cantidad de actividades presenciales. Somos pioneros en el programa Campamento de
+                            Trading, siendo el primer espacio formal similar a un congreso académico, que reúne
+                            estudiantes y profesionales a nivel global durante siete días para un proceso de aprendizaje
+                            de gran escala. </span>
+                    </p>
+                    <br />
+                    <p>
+                        <span>Estamos presentes en más de 20 países y la comunidad crece todos los días. Nuestra visión
+                            es transformar la vida de sus estudiantes a través de la educación para generar libertad
+                            financiera y niveles de conciencia para vivir en plenitud. </span>
+                    </p>
+                </h6>
+            </div>
+        </div>
+        <div *ngIf="imagenesN.length > 0" class="col-lg-5 col-md-5 col-sm-5 noticiaH">
+            <div class="row col-lg-12 col-md-12 col-sm-12">
+                <mat-card style="margin-left: auto; margin-right: auto;background-color: #ecf0f1;">
+                    <!--mat-card-header class="animate__animated animate__bounce animate__delay-1s" style="justify-content: center;">
+                        <mat-card-title style="text-align: right">
+                             <h2>Noticias</h2> 
+                        </mat-card-title>
+                    </mat-card-header-->
+                    <mat-card-content>
+                        <ngb-carousel class="home" [ngClass]="{homeN: imagenesN.length === 1}">
+                            <ng-template ngbSlide *ngFor="let slider of imagenesN">
+                                <img class="img-fluid mx-auto d-block" [src]="slider.urlImagen" alt="Random first slide" width="100%" />
+                                <div class="carousel-caption">
+                                    <h3>{{ slider.titulo }}</h3>
+                                    <p>{{ slider.descripcion }}</p>
+                                </div>
+                            </ng-template>
+                        </ngb-carousel>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+        <!-- <div class="col-lg-1 col-md-1 col-sm-1"></div> -->
+    </div>
+    <div class="row posicion">
+        <div class="row col-lg-12 col-md-12 col-sm-12" style="padding-left: 0px;
+    padding-right: 0px;
+    margin-left: 0px;
+    margin-right: 0px;">
+            <div class="col-lg-12 col-md-12 col-sm-12 animate__animated animate__bounce animate__delay-1s" style="text-align: center">
+                <h1 style="margin-bottom: 40px; font-size: 50px;color: #262F3D;">Nuestros servicios</h1>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 seccT">
+                <mat-card class="secciones-cardH">
+                    <mat-card-header class="animate__animated animate__bounce animate__delay-2s" style="justify-content: center;">
+                        <!-- <div mat-card-avatar class="secciones-header-image"></div> -->
+                        <mat-card-title>
+                            <a *ngIf="!link">
+                                <button mat-button type="button" class="btnServicio" disabled style="color: #262F3D;">
+                                    Trading
+                                </button>
+                            </a>
+                            <a *ngIf="link" [routerLink]="['/trading']">
+                                <button mat-button type="button" class="btnServicio" title="Ir a Trading">
+                                    Trading
+                                </button></a>
+                        </mat-card-title>
+                        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                    </mat-card-header>
+                    <img mat-card-image src="assets/images/trading.jpg" />
+                    <mat-card-content>
+                        <ul class="ulH">
+                            <li>Módulos pregrabados con materiales didácticos de apoyo.</li>
+                            <li>Setenta videos de principiante hasta avanzado.</li>
+                            <li>Clases en vivo semanalmente.</li>
+                            <li>Guía de estudio y talleres presenciales. </li>
+                            <li>Acceso a Campamento de Trading.</li>
+                            <li>Ideas y proyecciones de trading.</li>
+                            <li>Kit de materiales que se enviará a cualquier parte del mundo.</li>
+                            <li>Canales de apoyo.</li>
+                            <li>Soporte.</li>
+                        </ul>
+                    </mat-card-content>
+                    <!-- <mat-card-actions
+          style="
+            bottom: 16px !important;
+            left: 15px !important;
+            right: 0 !important;
+            position: absolute;
+          "
+        >
+          <a [routerLink]="['/trading']">
+            <button mat-button type="button" style="font-size: large">
+              Trading
+            </button></a
+          >
+        </mat-card-actions> -->
+                </mat-card>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 bajarS seccE">
+                <mat-card class="secciones-cardH">
+                    <mat-card-header class="animate__animated animate__bounce animate__delay-2s" style="justify-content: center;">
+                        <!-- <div mat-card-avatar class="secciones-header-image"></div> -->
+                        <mat-card-title>
+                            <a *ngIf="!link">
+                                <button mat-button type="button" class="btnServicio" disabled style="color: #262F3D;">
+                                    Educación Financiera
+                                </button>
+                            </a>
+                            <a *ngIf="link" [routerLink]="['/educacion']">
+                                <button mat-button type="button" class="btnServicio" title="Ir a Educación Financiera">
+                                    Educación Financiera
+                                </button>
+                            </a>
+                        </mat-card-title>
+                        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                    </mat-card-header>
+                    <img mat-card-image src="assets/images/educacion.jpg" />
+                    <mat-card-content>
+                        <ul class="ulH" style="margin-bottom: 0px;">
+                            <li>Programas para entender la relación con el dinero.
+                                <ul class="ulH">
+                                    <li>Diversificar</li>
+                                    <li>Inversiones</li>
+                                    <li>Ahorro</li>
+                                    <li>Deuda</li>
+                                    <li>Aumento de ingresos</li>
+                                    <li>Crear pasivos</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="ulH">
+                            <li>Acceso a talleres en actividades presenciales.</li>
+                        </ul>
+                    </mat-card-content>
+                    <!-- <mat-card-actions
+          style="
+            bottom: 16px !important;
+            left: 15px !important;
+            right: 0 !important;
+            position: absolute;
+          "
+        >
+          <a [routerLink]="['/educacion']">
+            <button mat-button type="button" style="font-size: large">
+              Educación Financiera
+            </button>
+          </a>
+        </mat-card-actions> -->
+                </mat-card>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 seccD">
+                <mat-card class="secciones-cardH">
+                    <mat-card-header class="animate__animated animate__bounce animate__delay-2s" style="justify-content: center;">
+                        <!-- <div mat-card-avatar class="secciones-header-image"></div> -->
+                        <mat-card-title>
+                            <a *ngIf="!link">
+                                <button mat-button type="button" class="btnServicio" disabled style="color: #262F3D;">
+                                    Desarrollo Personal
+                                </button>
+                            </a>
+                            <a *ngIf="link" [routerLink]="['/desarrollo']">
+                                <button mat-button class="btnServicio" type="button" title="Ir a Desarrollo Personal">
+                                    Desarrollo Personal
+                                </button></a>
+                        </mat-card-title>
+                        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                    </mat-card-header>
+                    <img mat-card-image src="assets/images/desarrollo.jpg" />
+                    <mat-card-content>
+                        <ul class="ulH">
+                            <li>Más allá del Psicotrading.</li>
+                            <li>Guía de trabajo para iniciar en Desarrollo personal.</li>
+                            <li>Sesiones en vivo de coaching con profesionales.</li>
+                            <li>Programas mensuales con temas específicos.</li>
+                            <li>Biblioterapia.</li>
+                        </ul>
+                    </mat-card-content>
+
+                    <!-- <mat-card-actions>
+          <a [routerLink]="['/desarrollo']">
+            <button mat-button type="button" style="font-size: large">
+              Desarrollo Personal
+            </button></a
+          >
+        </mat-card-actions> -->
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <div class="row col-lg-12 col-md-12 col-sm-12" style="margin-top: 60px; margin-bottom: 90px;
+    margin-left: 0px;
+    margin-right: 0px;">
+        <mat-card style="background-color: #ecf0f1;">
+            <mat-card-content>
+                <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px">
+                    <img class="img-fluid mx-auto d-block" src="../.././../../assets/images/porqueEstudiar.jpg" alt="Imagen" width="100%" height="100%" />
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="row col-lg-12 col-md-12 col-sm-12" style="margin-top: 60px; margin-bottom: 90px;
+    margin-left: 0px;
+    margin-right: 0px;">
+        <mat-card style="background-color: #ecf0f1;">
+            <mat-card-content>
+                <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px">
+                    <img class="img-fluid mx-auto d-block" src="../.././../../assets/images/queAprenderas.jpg" alt="Imagen" width="100%" height="100%" />
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+
+
+    <div class="row" style="margin-top: 60px; margin-bottom: 60px" *ngIf="imagenesT.length > 0">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="
+    padding-left: 30px;
+    padding-right: 30px;
+    display: block;
+    margin: auto;
+  ">
+            <mat-card style="margin-left: auto; margin-right: auto;background-color: #ecf0f1;">
+                <mat-card-content>
+                    <ngb-carousel class="homeC" [ngClass]="{homeCT: imagenesT.length === 1}">
+                        <ng-template ngbSlide *ngFor="let slider of imagenesT">
+                            <img class="img-fluid mx-auto d-block" [src]="slider.urlImagen" alt="Random first slide" width="100%" height="100%" />
+                            <div class="carousel-caption">
+                                <h3>{{ slider.titulo }}</h3>
+                                <p>{{ slider.descripcion }}</p>
+                            </div>
+                        </ng-template>
+                    </ngb-carousel>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 60px; margin-bottom: 60px;">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="
+    padding-left: 30px;
+    padding-right: 30px;
+    display: block;
+    margin: auto;
+  ">
+            <mat-card style="background-color: #ecf0f1;">
+                <mat-card-content>
+                    <div class="row col-lg-12 col-md-12 col-sm-12 divisas" style="
+            padding-top: 40px !important;
+            padding-bottom: 60px !important;
+          ">
+                        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                        <div class="col-lg-10 col-md-10 col-sm-10" style="padding-left: 0px;
+          padding-right: 0px;
+          margin-left: 0px;
+          margin-right: 0px;">
+                            <h1 style="margin-bottom: 40px; font-size: 50px; color: #262F3D;" class="animate__animated animate__bounce animate__delay-1s">
+                                Divisas
+                            </h1>
+                            <iframe allowtransparency="true" frameborder="0" [src]="iframe  | domseguro" width="100%" height="400px"></iframe>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <a [href]="divisa  | domseguro" rel="noopener noreferrer" target="_blank"><span
+                                        class="blue-text">Cambio
+                                        de
+                                        divisas</span></a> por TradingView
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+
+</section>
+<app-footer></app-footer>

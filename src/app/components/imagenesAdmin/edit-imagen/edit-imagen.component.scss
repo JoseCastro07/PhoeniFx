@@ -1,0 +1,47 @@
+@import "src/scss/variables";
+@import "src/scss/helpers";
+.edit-imagen-container {
+    display: flex;
+    flex-direction: column;
+    form {
+        input[type="file"] {
+            display: none;
+        }
+        input.mat-flat-button {
+            @include button_full($button_purpure);
+        }
+        mat-form-field {
+            width: 100%;
+        }
+        .validarI {
+            color: #f44336;
+            font-family: Roboto, "Helvetica Neue", sans-serif;
+            font-size: 12px;
+        }
+    }
+    .posicionI {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .archivo {
+        left: 50px;
+        top: 10px;
+    }
+    @media only screen and (max-width: 575px) {
+        .input-group {
+            display: grid !important;
+        }
+        .estado {
+            left: 0px !important;
+            padding-left: 0px !important;
+            margin-bottom: 15px !important;
+        }
+        .archivo {
+            left: 0px;
+            padding-left: 0px;
+            top: 10px;
+        }
+    }
+}

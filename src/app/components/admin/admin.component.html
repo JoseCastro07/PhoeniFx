@@ -1,0 +1,23 @@
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)" (evento)="eventoImagen($event)" *ngIf="isDataAvailable"></app-sidebar>
+<div class="main-containerA  animate__animated animate__fadeInDown" *ngIf="isDataAvailable">
+    <div *ngIf="url !== '/adminmaintenancemodulePF' || eventImage" class="row mainM" [ngClass]="{ collapsedM: collapedSideBar }">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <div *ngIf="url === '/adminmaintenancemodulePF' && !eventImage" class="row mainI" [ngClass]="{ collapsedI: collapedSideBar }">
+        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        <div class="col-lg-10 col-md-10 col-sm-10 carousel">
+            <ngb-carousel class="admin">
+                <ng-template ngbSlide *ngFor="let slider of sliders">
+                    <img class="img-fluid mx-auto d-block" src="{{ slider }}" alt="Random first slide" width="100%" />
+                    <div class="carousel-caption">
+                        <p>Módulo de Administración de PhoeniFx.</p>
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    </div>
+</div>
+<app-header (evento)="eventoAdmin()" *ngIf="isDataAvailable"></app-header>

@@ -1,0 +1,278 @@
+<div class="row">
+    <div class="col col-xs-12 col-lg-12 col-md-12 col-sm-12">
+        <mat-card class="mb-3" style="padding: 0% !important">
+            <mat-card-subtitle class="card-header">
+                <mat-form-field style="font-size: 1rem;
+                width: 100%;
+                margin: 0 auto;
+                margin-top: 1rem;">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar" />
+                </mat-form-field>
+            </mat-card-subtitle>
+            <div class="row col-lg-12 col-md-12 col-sm-12">
+                <div class="input-group col-lg-7  col-md-7  col-sm-7">
+                </div>
+                <div class="input-group col-lg-5  col-md-5  col-sm-5" style="
+                padding-right: 0px;">
+                    <button *ngIf="dataLength > 0" type="button" mat-raised-button type="button" class="btn btnUs" color="primary" (click)="onRefresh()" title="Refrescar Estado Usuarios">
+                        <mat-icon>refresh</mat-icon>&nbsp; Refrescar 
+                    </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" mat-raised-button type="button" class="btn btnUs" color="accent" (click)="onNewUsuario()" title="Agregar Usuario">
+                        <mat-icon>note_add</mat-icon>&nbsp; Nuevo
+                    </button>
+                </div>
+            </div>
+            <mat-card-content class="card-body table-responsive" [ngClass]="{ ocultar: dataLength === 0 }">
+                <div class="mat-elevation-z8">
+                    <div class="example-table-container">
+                        <table mat-table [dataSource]="dataSource" matSort class="table_data_source table-hover mat-elevation-z8" matSortDisableClear matSortDirection="asc" matTableExporter #exporter="matTableExporter">
+                            <ng-container matColumnDef="nombre">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;">
+                                    Usuario
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }">
+                                    <img *ngIf="element.photoURL === ''" [ngStyle]="{border :element.state === 'online' ? '2px solid #51CA31': '2px solid #FF0000'}" src="assets/images/user.png" alt="Image" width="35px" height="35px" class="rounded-circle" [title]="element.state === 'online' ? 'En línea': 'Inactivo'"
+                                    />
+                                    <img *ngIf="element.photoURL !== ''" [ngStyle]="{border :element.state === 'online' ? '2px solid #51CA31': '2px solid #FF0000'}" [src]="element.photoURL" alt="Image" width="35px" height="35px" class="rounded-circle" [title]="element.state === 'online' ? 'En línea': 'Inactivo'"
+                                    />
+                                    <font [title]="element.nombre">{{ element.nombre | split: " ": 1: 2}}</font>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Correo electrónico
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }" style="text-align: center;">
+                                    {{ element.email }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="estado">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Estado de Pago
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }">
+                                    <p></p>
+                                    <p *ngIf="element.estado === '01canc1'">Cancelado</p>
+                                    <p *ngIf="element.estado === '02pend2'">Pendiente</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="rol">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Rol</th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }">
+                                    <p></p>
+                                    <p *ngIf="element.rol === '1.gxp12jt$l#'">Administrador</p>
+                                    <p *ngIf="element.rol === '02clie2'">Cliente</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="tipoPlan">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Tipo de Plan
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }" style="text-align: center;">
+                                    <p></p>
+                                    <p *ngIf="element.tipoPlan === '01sta1'">Standard</p>
+                                    <p *ngIf="element.tipoPlan === '02pre2'">Premium</p>
+                                    <!-- <p *ngIf="element.tipoPlan === '03met3'">
+                                        Plan Metamorphosis
+                                    </p> -->
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="codigoR">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Código de Referido
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }" style="text-align: center;">
+                                    {{ element.codigoR }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="tipoPago">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Tipo de Pago
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }" style="text-align: center;">
+                                    {{ element.tipoPago }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fechaPago">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Fecha de Pago
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }" style="text-align: center;">
+                                    {{ element.fechaPago | date: "dd-MM-yyyy" }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fechaVencimientoPago">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Fecha Límite de Pago
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }" style="text-align: center;">
+                                    {{ element.fechaVencimientoPago | date: "dd-MM-yyyy" }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fechaUltimaVisita">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Última Visita
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }" style="text-align: center;">
+                                    {{ element.fechaUltimaVisita | date: "dd-MM-yyyy" }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fechaCreacion">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Creación
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }" style="text-align: center;">
+                                    {{ element.fechaCreacion | date: "dd-MM-yyyy" }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="usuarioCreacion">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Usuario Creación
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }" [title]="element.usuarioCreacion" style="text-align: center;">
+                                    {{ element.usuarioCreacion | split: " ": 1: 2 }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fechaModificacion">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Modificación
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }" style="text-align: center;">
+                                    {{ element.fechaModificacion | date: "dd-MM-yyyy" }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="usuarioModificacion">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Usuario Modificación
+                                </th>
+                                <td mat-cell *matCellDef="let element" [ngStyle]="{
+                    color:
+                      element.estado === '02pend2' && element.rol === '02clie2'
+                        ? '#DF010E'
+                        : ''
+                  }" [title]="element.usuarioModificacion" style="text-align: center;">
+                                    {{ element.usuarioModificacion | split: " ": 1: 2 }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-stroked-button class="btn btn-outline-info" (click)="onViewProceso(element)" title="Ver Proceso del Usuario">
+                                        <mat-icon>visibility</mat-icon>
+                                    </button>
+                                    <button mat-stroked-button class="btn btn-outline-warning" (click)="onEditUsuario(element)" title="Editar Usuario">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <!-- <button mat-stroked-button class="btn btn-outline-danger" (click)="onDeleteUsuario(element)">
+        <mat-icon>delete</mat-icon>
+      </button> -->
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+                            <tr mat-row *matRowDef="let row; columns: getDisplayedColumns()"></tr>
+                        </table>
+                    </div>
+                    <mat-paginator [length]="dataSource?.data.length" [pageSizeOptions]="[5, 10, 30, 50, 100, 200]" showFirstLastButtons></mat-paginator>
+                </div>
+                <br>
+                <mat-checkbox [(ngModel)]="checked" [(indeterminate)]="indeterminate" (change)="allSelected()" color="primary">&nbsp;{{select}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-checkbox>
+                <form [formGroup]="form">
+                    <mat-checkbox *ngFor="let cd of columnDefinitions" [formControlName]="cd.def" color="primary">
+                        &nbsp;{{cd.label}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-checkbox>
+                </form>
+                <a class="navbar-brand" href="javascript:void(0)" (click)="exporter.exportTable('xlsx', {fileName:'datos', sheet: 'usuarios', Props: {Author: 'PhoeniFx'}})" matTooltip="Exportar a Excel" matTooltipPosition="right" matTooltipClass="example-tooltipLU">
+                    <img alt="Excel" src="assets/images/excel.png" width="40" height="40" />
+                </a>
+            </mat-card-content>
+            <br>
+            <div class="alert alert-danger animate__animated animate__bounce animate__delay-1s" style="margin-left: 20px; margin-right: 20px; bottom: 7px" *ngIf="dataLength === 0">
+                <div class="row" style="display: block; text-align: center">
+                    <div>
+                        <mat-icon>info</mat-icon>
+                    </div>
+                    <div>&nbsp;No existen registros a mostrar.</div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

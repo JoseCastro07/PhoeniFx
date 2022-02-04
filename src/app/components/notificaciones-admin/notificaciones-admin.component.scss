@@ -1,0 +1,53 @@
+@import "src/scss/variables";
+@import "src/scss/helpers";
+.notification-container {
+    display: flex;
+    flex-direction: column;
+    form {
+        input[type='file'] {
+            display: none;
+        }
+        input.mat-flat-button {
+            @include button_full($button_purpure)
+        }
+        mat-form-field {
+            width: 100%;
+        }
+    }
+    @media only screen and (min-width: 900px) {
+        .estado {
+            left: 60px !important;
+        }
+    }
+    @media only screen and (max-width: 650px) and (min-width: 575px) {
+        .estado {
+            left: 0px !important;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+    }
+    @media only screen and (max-width: 575px) {
+        .input-group {
+            display: grid !important;
+        }
+        .estado {
+            left: 0px !important;
+            padding-left: 0px !important;
+            padding-top: 15px !important;
+        }
+        .btnBorrar {
+            padding-top: 25px !important;
+        }
+    }
+    @media only screen and (max-width: 400px) {
+        .lbnoti {
+            font-size: x-large;
+        }
+    }
+}
+
+
+/*
+    .cdk-overlay-pane {
+        margin-top: 80px !important;
+    }*/

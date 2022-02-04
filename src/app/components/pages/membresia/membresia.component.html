@@ -1,0 +1,81 @@
+<div class="main-containerMe">
+    <div class="row pago">
+        <div class="col-lg-12 col-md-12 col-sm-12 animate__animated animate__bounce animate__delay-1s" style="text-align: center">
+            <h1 style="margin-bottom: 30px; font-size: 50px; color: #262F3D;">PLAN DE PAGOS</h1>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3"></div>
+        <div class="col-lg-3 col-md-3 col-sm-3 animate__animated animate__fadeInDown sizeD">
+            <mat-card class="planes-cardM">
+                <mat-card-header style="background-color: #B6AF9C; border-radius: 10px;justify-content: center;">
+                    <mat-card-title class="animate__animated animate__bounce animate__delay-2s">
+                        <h4 style="color: #fff; margin-top: 15px; text-align: center" class="titulos">
+                            <font matTooltip="PLAN STANDARD" matTooltipPosition="below" matTooltipClass="example-tooltipM">PLAN STANDARD</font>
+                            <font style="color: #FFD740;" id="ftPlanS">{{actualS}}</font>
+                            <font id="iconFS">
+                                <mat-icon *ngIf="fechaS !== ''" style="font-size: x-large; cursor: pointer" matTooltip="Fecha de Vencimiento: {{ fechaS | date: 'EEEE d, MMMM,  y'}}" matTooltipPosition="above" matTooltipClass="example-tooltipM">info</mat-icon>
+                            </font>
+                        </h4>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="content">
+                    <br />
+                    <ul *ngFor="let item of serviciosT" class="ulM">
+                        <li>
+                            {{ item.servicio }}
+                        </li>
+                    </ul>
+                </mat-card-content>
+                <mat-card-actions class="accion">
+                    <h2 style="margin-bottom: 0" class="valorM">$ 550</h2>
+                    <p class="titulos"><strong>Único pago anual</strong></p>
+                    <a (click)="openDialog(1)" href="javascript:void(0)">
+                        <button mat-raised-button style="color: #fff; background-color: #6C757D" type="button" class="btnM">
+                            <mat-icon style="font-size: 20px" class="esconderM">payment</mat-icon>&nbsp;<font
+                                id="btnPlanS" class="esconderF">{{btnS}}</font>
+                        </button>
+                    </a>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 animate__animated animate__fadeInUp sizeD bajarP">
+            <mat-card class="planes-cardM">
+                <mat-card-header style="background-color: #B6AF9C; border-radius: 10px;justify-content: center;">
+                    <mat-card-title class="animate__animated animate__bounce animate__delay-2s">
+                        <h4 style="color: #fff; margin-top: 15px; text-align: center" class="titulos">
+                            <font matTooltip="PLAN PREMIUM" matTooltipPosition="below" matTooltipClass="example-tooltipM">PLAN PREMIUM</font>
+                            <font style="color: #FFD740;" id="ftPlanP">{{actualP}}</font>
+                            <font id="iconFP">
+                                <mat-icon *ngIf="fechaP !== ''" style="font-size: x-large; cursor: pointer" matTooltip="Fecha de Vencimiento: {{ fechaP | date: 'EEEE d, MMMM,  y'}}" matTooltipPosition="above" matTooltipClass="example-tooltipM">
+                                    info</mat-icon>
+                            </font>
+                        </h4>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <br />
+                    <ul *ngFor="let item of serviciosT" class="ulM">
+                        <li>
+                            {{ item.servicio }}
+                        </li>
+                    </ul>
+                    <ul class="ulM">
+                        <li>
+                            3 Sesiones privadas 1/1.
+                        </li>
+                    </ul>
+                </mat-card-content>
+                <mat-card-actions class="accion">
+                    <h2 style="margin-bottom: 0" class="valorM">$ 950</h2>
+                    <p class="titulos"><strong> Único pago anual</strong></p>
+                    <a (click)="openDialog(2)" href="javascript:void(0)">
+                        <button mat-raised-button class="btn btn-outline-primary" style="color: #fff; background-color: #6C757D" value="{{btnP}}" type="button" class="btnM">
+                            <mat-icon style="font-size: 20px" class="esconderM">payment</mat-icon>&nbsp;&nbsp;<font
+                                id="btnPlanP" class="esconderF">{{btnP}}</font>
+                        </button>
+                    </a>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3"></div>
+    </div>
+</div>

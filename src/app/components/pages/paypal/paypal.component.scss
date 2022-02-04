@@ -1,0 +1,24 @@
+@import "src/scss/variables";
+@import "src/scss/helpers";
+body {
+    .dom-ready {
+        .paypal-powered-by>.paypal-button-text,
+        .paypal-powered-by>.paypal-logo {
+            display: none !important;
+        }
+    }
+}
+
+.animate__animated {
+    animation-fill-mode: none !important;
+}
+
+mat-card-header {
+    justify-content: center;
+}
+
+.payP {
+    svg {
+        margin-left: 10px !important;
+    }
+}

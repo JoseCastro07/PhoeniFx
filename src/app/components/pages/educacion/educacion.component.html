@@ -1,0 +1,217 @@
+<app-header [porcentajeVV]="porcentajeVideosV" [resultadoVV]="resultado" [color]="color" *ngIf="isDataAvailable">
+</app-header>
+<div class="main-containerE animate__animated animate__fadeInDown" *ngIf="isDataAvailable" (window:resize)="onResize($event)">
+    <div class="principalSidebar">
+        <div class="toggle-buttonE animated fadeIn" [ngClass]="{ collapsedE: collapsedE }">
+            <div class="row col-lg-12 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-1 col-md-1 col-sm-1" *ngIf="collapsedE">
+                        <mat-icon (click)="toggleCollapsed()" style="margin-left: 10px; cursor: pointer">arrow_back
+                        </mat-icon>
+                    </div>
+                    <div (click)="toggleCollapsed()" *ngIf="etapasL === 0 && collapsedE" class="col-lg-7 col-md-7 col-sm-7" style="left: 5px; font-size: large; cursor: pointer">
+                        <p style="margin-left: 10px; margin-top: 0; margin-bottom: 0rem">
+                            No existe contenido
+                        </p>
+                    </div>
+                    <div *ngIf="etapasL === 0 && !collapsedE" class="col-lg-10 col-md-10 col-sm-10 contenido">
+                        <p style="margin-right: 90px; margin-top: 0; margin-bottom: 0rem">
+                            No existe contenido
+                        </p>
+                    </div>
+                    <div (click)="toggleCollapsed()" *ngIf="etapasL > 0 && collapsedE" class="col-lg-7 col-md-7 col-sm-7" style="left: 5px; font-size: large; cursor: pointer">
+                        <p style="margin-left: 10px; margin-top: 0; margin-bottom: 0rem">
+                            Contenido disponible
+                        </p>
+                    </div>
+                    <div *ngIf="etapasL > 0 && !collapsedE" class="col-lg-10 col-md-10 col-sm-10 contenido">
+                        <p style="margin-right: 90px; margin-top: 0; margin-bottom: 0rem">
+                            Contenido disponible
+                        </p>
+                    </div>
+                    <div *ngIf="!collapsedE" class="col-lg-2 col-md-2 col-sm-2">
+                        <mat-icon (click)="toggleCollapsed()" class="cerrar" title="Cerrar">close</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebarE" [ngClass]="{ sidebarPushRight: isActive, collapsedS: collapsedE }">
+            <nav>
+                <div *ngIf="!collapsedE" class="list-group">
+                    <div class="nested-menu divBorde" *ngFor="let item of etapas">
+                        <a (click)="addExpandClass(item.idEtapa)" class="list-group-item" style="padding-left: 5px">
+                            &nbsp;<span style="margin-left: 10px">{{
+                                item.descripcion
+                                }}</span>
+                            <mat-icon *ngIf="showMenuE !== item.idEtapa" class="submenuK">keyboard_arrow_down</mat-icon>
+                            <mat-icon *ngIf="showMenuE === item.idEtapa" class="submenuK">keyboard_arrow_up</mat-icon>
+                            <br />
+                            <p style="margin-left: 40px; margin-top: 0; margin-bottom: 0rem">
+                                {{ item.totalVistosE }}/{{ item.totalVideosE }}
+                            </p>
+                        </a>
+                        <div *ngIf="!collapsedE">
+                            <li class="nested" [class.expand]="showMenuE === item.idEtapa">
+                                <ul class="submenu rss">
+                                    <li *ngFor="let i of getVideos(item.idEtapa)" [ngClass]="{ videoActual: filterVideo === i.id }">
+                                        <div class="row columnaV" [ngClass]="{ videoActual: filterVideo === i.id }">
+                                            <div class="col-lg-2 col-md-2 col-sm-2 check" style="left: 20px; top: 14px">
+                                                <mat-checkbox class="example-margin" color="warn" (change)="videoC(i)" [attr.title]="
+                            i.estadoVideo ? 'Completado' : 'En progreso'
+                          " [(ngModel)]="i.estadoVideo">
+                                                </mat-checkbox>
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-sm-10" style="padding-left: 0px; font-size: 14px; left: 10px">
+                                                <a (click)="verVideo(i)" class="list-group-item" [ngClass]="{ videoActual: filterVideo === i.id }" style="padding-left: 0px" [attr.title]="
+                            filterVideo === i.id
+                              ? 'Actual video'
+                              : 'Ir al video'
+                          ">
+                                                    <span>{{ i.posicionVPantalla }}. {{ i.nombre }}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
+                    </div>
+                    <div style="margin-top: 110px">
+                        <p></p>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div *ngIf="videosL > 0" class="row mainV" [ngClass]="{ collapsedV: collapsedE }">
+        <div class="row col-lg-12 col-md-12 col-sm-12 disminuirP" *ngFor="let video of videos | filter: filterVideo" style="height: max-content;">
+            <div class="col-lg-12 col-md-12 col-sm-12 carousel" style="
+          padding-right: 0px;
+          padding-left: 0px;
+          border: 1px solid #ddd;
+          background: #f1f1f1;
+        ">
+                <div class="carousel slide educacion" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <video class="mx-auto d-block" width="100%" height="100%" controls controlsList="nodownload" #videoP (timeupdate)="guardarS(videoP)" (ended)="videoTerminado(video)">
+                                <source src="{{ video.fileVideo }}#t={{ segundoA }}" type="video/mp4" />
+                            </video>
+                        </div>
+                    </div>
+                    <a *ngIf="primerV !== video.id" class="carousel-control-prev" href="javascript:void(0)" (click)="getPrev(video)" role="button" data-slide="prev" matTooltip="{{ nombreA }}" matTooltipPosition="right">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a *ngIf="ultimoV !== video.id" class="carousel-control-next" href="javascript:void(0)" (click)="moveNext(video)" role="button" data-slide="next" matTooltip="{{ nombreS }}" matTooltipPosition="left">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="row col-lg-12 col-md-12 col-sm-12 pantallaPequeña">
+                <div class="input-group col">
+                    <button type="button" class="btn btn-light btn-block" (click)="aparecer(1)" style="
+                    padding-left: 0px;
+                    padding-right: 0px;
+                ">
+                        <h6>Descripción general</h6>
+                    </button>
+                </div>
+                <div class="input-group  col">
+                    <button type="button" class="btn btn-light btn-block" (click)="aparecer(2)" style="
+                    padding-left: 0px;
+                    padding-right: 0px;
+                ">
+                        <h6>Contenido disponible</h6>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="botonD" class="row col-lg-12 col-md-12 col-sm-12" style="padding-right: 0px; white-space: pre-wrap; margin-bottom: 57px">
+                <div class="col-lg-12 col-md-12 col-sm-12" style="padding-right: 0px">
+                    <div class="animate__animated animate__bounce animate__delay-1s descripcion">
+                        <div class="row" style="display: block">
+                            <div class="col-lg-10 col-md-10 col-sm-10">
+                                <strong>
+                                    <h2 style="color: #262f3d">{{ video.nombre }}</h2>
+                                </strong>
+                                <p style="text-align: justify;">{{ video.descripcion }}</p>
+                                <p *ngFor="let link of video.controlLink" style="text-align: justify;margin-bottom: 0px;"><a href="{{link.url}}" target="_blank" title="Abrir link">{{link.nombre}}</a></p>
+                            </div><br>
+                            <div *ngIf="video.fileAdjunto" class="col-lg-10 col-md-10 col-sm-10">
+                                <strong>
+                                    <h4 style="color: #262f3d">Archivo Adjunto</h4>
+                                </strong>
+                                <a href="{{ video.fileAdjunto }}" target="_blank" title="Abrir Adjunto">{{
+                                    video.nombreAdjunto
+                                    }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="botonC" class="row col-lg-12 col-md-12 col-sm-12 secondSidebar">
+                <div class="col-lg-12 col-md-12 col-sm-12 sidebarES" [ngClass]="{ sidebarPushRight: isActive, collapsedS: collapsedE }">
+                    <nav style="
+                    background-color: #262f3d;height: auto;">
+                        <div *ngIf="!collapsedE" class="list-group">
+                            <div class="nested-menu" *ngFor="let item of etapas">
+                                <a (click)="addExpandClass(item.idEtapa)" class="list-group-item" style="padding-left: 5px">
+                                    &nbsp;<span style="margin-left: 10px">{{
+                                        item.descripcion
+                                        }}</span>
+                                    <mat-icon *ngIf="showMenuE !== item.idEtapa" class="submenuK">keyboard_arrow_down
+                                    </mat-icon>
+                                    <mat-icon *ngIf="showMenuE === item.idEtapa" class="submenuK">keyboard_arrow_up
+                                    </mat-icon>
+                                    <br />
+                                    <p style="margin-left: 40px; margin-top: 0; margin-bottom: 0rem">
+                                        {{ item.totalVistosE }}/{{ item.totalVideosE }}
+                                    </p>
+                                </a>
+                                <div *ngIf="!collapsedE">
+                                    <li class="nested" [class.expand]="showMenuE === item.idEtapa">
+                                        <ul class="submenu rss">
+                                            <li *ngFor="let i of getVideos(item.idEtapa)" [ngClass]="{ videoActual: filterVideo === i.id }">
+                                                <div class="row columnaV" [ngClass]="{ videoActual: filterVideo === i.id }">
+                                                    <mat-checkbox class="example-margin matC" style="margin-top: 14px;
+                                                    margin-left: 30px;" color="warn" (change)="videoC(i)" [attr.title]="
+                                    i.estadoVideo ? 'Completado' : 'En progreso'
+                                  " [(ngModel)]="i.estadoVideo">
+                                                    </mat-checkbox>
+                                                    <a (click)="verVideo(i)" class="list-group-item nombreC" [ngClass]="{ videoActual: filterVideo === i.id }" style="padding-left: 0px;
+                                                    left: 14px;" [attr.title]="
+                                    filterVideo === i.id
+                                      ? 'Actual video'
+                                      : 'Ir al video'
+                                  ">
+                                                        <span>{{ i.posicionVPantalla }}. {{ i.nombre }}</span>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="etapasL === 0" class="row noExiste" [ngClass]="{ collapsednE: collapsedE }">
+        <div class="row col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="alert alert-danger animate__animated animate__bounce animate__delay-1s" style="border-radius: 0% !important">
+                    <div class="row" style="display: block; text-align: center">
+                        <div>
+                            <mat-icon>info</mat-icon>
+                        </div>
+                        <div>&nbsp;No existen contenido a mostrar.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer *ngIf="isDataAvailable"></app-footer>

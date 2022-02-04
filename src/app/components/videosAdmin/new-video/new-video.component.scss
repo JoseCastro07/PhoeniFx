@@ -1,0 +1,43 @@
+@import "src/scss/variables";
+@import "src/scss/helpers";
+.new-video-container {
+    display: flex;
+    flex-direction: column;
+    form {
+        input[type="file"] {
+            display: none;
+        }
+        input.mat-flat-button {
+            @include button_full($button_purpure);
+        }
+        mat-form-field {
+            width: 100%;
+        }
+    }
+    .posicionVA {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    @media only screen and (max-width: 575px) {
+        .input-group {
+            display: grid !important;
+        }
+        .nombreE {
+            left: 0px !important;
+            padding-left: 0px !important;
+        }
+        .posicionNV {
+            left: 0px !important;
+            padding-left: 0px !important;
+            bottom: 15px !important;
+        }
+        .estado {
+            left: 0px !important;
+            padding-top: 0px !important;
+            padding-left: 0px !important;
+            margin-bottom: 15px !important;
+        }
+    }
+}

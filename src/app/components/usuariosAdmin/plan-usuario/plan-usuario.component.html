@@ -1,0 +1,250 @@
+<mat-card>
+    <button mat-icon-button title="Cerrar" [mat-dialog-close]="true" style="position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    line-height: 14px;
+    min-width: auto;">
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
+          </button>
+    <mat-card-header style="justify-content: center;">
+        <mat-card-title>
+            <h2 style="margin-top: 15px; text-align: center">
+                <label>PLAN DE TRADING</label>
+            </h2>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h6 style="text-align: center;">Usuario: {{ usuario.nombre }}</h6>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content style="margin-bottom: 0px">
+        <form autocomplete="off" [formGroup]="addPlanTradingForm">
+            <div class="row plan">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <mat-card>
+                        <mat-card-header style="background-color: #B6AF9C; border-radius: 10px;justify-content: center;">
+                            <mat-card-title>
+                                <h4 style="color: #fff; margin-top: 15px; text-align: center">
+                                    <label>Perfil Trading</label>
+                                </h4>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="row col-lg-12 col-md-12 col-sm-12" style="
+                                padding-right: 0px;
+                            ">
+                                <div class="col" style="
+                                    padding-right: 0px;
+                                ">
+                                    <br>
+                                    <br>
+                                    <mat-form-field class="example-form-field" style="margin-bottom: 10px;
+                                    ">
+                                        <mat-label>Tipo Trader</mat-label>
+                                        <input matInput placeholder="Tipo Trader" formControlName="tipoTrader" />
+                                    </mat-form-field>
+                                    <mat-form-field class="example-form-field" style="margin-bottom: 10px;
+                                    ">
+                                        <mat-label>Pares Preferidos</mat-label>
+                                        <input matInput placeholder="Pares Preferidos" formControlName="paresPreferidos" />
+                                    </mat-form-field>
+                                    <mat-form-field class="example-form-field" style="margin-bottom: 10px;
+                                    ">
+                                        <mat-label>Sistema de Trading</mat-label>
+                                        <input matInput placeholder="Sistema de Trading" formControlName="sistema" />
+                                    </mat-form-field>
+                                    <mat-form-field class="example-form-field">
+                                        <mat-label>Reglas de Entrada</mat-label>
+                                        <input matInput placeholder="Reglas de Entrada" formControlName="reglas" />
+                                    </mat-form-field>
+                                    <mat-form-field class="example-form-field">
+                                        <mat-label>Riesgo Benefico</mat-label>
+                                        <input matInput placeholder="Riesgo Benefico" formControlName="riesgo" />
+                                    </mat-form-field>
+                                    <mat-label>Días Operación:</mat-label>
+                                    <ul *ngFor="let dia of dias" style="display:inline-block;padding-left: 15px;">
+                                        <li style="display:block;">
+                                            <mat-checkbox [value]="dia.id" [checked]="dia.estado" color="primary" disabled>
+                                                {{ dia.descripcion }}
+                                            </mat-checkbox>
+                                        </li>
+                                    </ul>
+                                    <div class="row" style="margin-bottom: 20px;
+                                    ">
+                                        <div class="col">
+                                            <mat-label>Meta Pips Semanal:&nbsp;{{addPlanTradingForm.get('meta').value}}
+                                            </mat-label>
+                                        </div>
+                                        <div class="col">
+                                            <mat-label>Horas de Backtesting Semanal:&nbsp;{{addPlanTradingForm.get('horasB').value}}
+                                            </mat-label>
+                                        </div>
+                                        <div class="col">
+                                            <mat-label>Horas de Estudio Teórico Semanal:&nbsp;{{addPlanTradingForm.get('horasE').value}}
+                                            </mat-label>
+                                        </div>
+                                    </div>
+                                    <mat-form-field class="example-form-field" style="margin-bottom: 10px;
+                                    ">
+                                        <mat-label>Fortalezas</mat-label>
+                                        <input matInput placeholder="Fortalezas" formControlName="fortalezas" />
+                                    </mat-form-field>
+                                    <mat-form-field class="example-form-field" style="margin-bottom: 2px;
+                                    ">
+                                        <mat-label>Mi Creencia de Crecimiento</mat-label>
+                                        <input matInput placeholder="Mi Creencia de Crecimiento" formControlName="creencia" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 bajar">
+                    <mat-card style="height: auto;
+                        max-height: 685px;
+                        overflow-y: auto;">
+                        <mat-card-header style="background-color: #B6AF9C; border-radius: 10px;justify-content: center;">
+                            <mat-card-title>
+                                <h4 style="color: #fff; margin-top: 15px; text-align: center">
+                                    <label>Trades Semanales</label>
+                                </h4>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <br>
+                            <div formArrayName="controlTrade">
+                                <div [formGroupName]="i" *ngFor="let controlT of getControlsT(); let i = index" style="margin-bottom: 5px;">
+                                    <mat-card class="example-card">
+                                        <mat-card-content>
+                                            <div class="row col-lg-12 col-md-12 col-sm-12" style="
+                                        padding-right: 0px;
+                                        padding-left: 0px;
+                                        margin-right: 0px;
+                                        margin-left: 0px;
+                                    ">
+                                                <div class="col col-lg-4 col-md-4 col-sm-4">
+                                                    <mat-form-field class="example-form-field">
+                                                        <mat-label>Divisa</mat-label>
+                                                        <input matInput placeholder="Divisa" formControlName="divisa" />
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col col-lg-4 col-md-4 col-sm-4">
+                                                    <mat-form-field>
+                                                        <mat-select placeholder="Tipo Operación" formControlName="tipoOperacion">
+                                                            <mat-option *ngFor="let tipo of tipoOperaciones" [value]="tipo.id">{{ tipo.descripcion }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col col-lg-4 col-md-4 col-sm-4">
+                                                    <mat-form-field class="example-form-field">
+                                                        <mat-label>Punto de Entrada</mat-label>
+                                                        <input type="number" matInput placeholder="Punto de Entrada" formControlName="puntoEntrada" />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="row col-lg-12 col-md-12 col-sm-12" style="
+                                        padding-right: 0px;
+                                        padding-left: 0px;
+                                        margin-right: 0px;
+                                        margin-left: 0px;
+                                    ">
+                                                <div class="col">
+                                                    <mat-form-field class="example-form-field">
+                                                        <mat-label>Take Profit</mat-label>
+                                                        <input type="number" matInput placeholder="Take Profit" formControlName="takeProfit" />
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col">
+                                                    <mat-form-field class="example-form-field">
+                                                        <mat-label>Stop Loss</mat-label>
+                                                        <input type="number" matInput placeholder="Stop Loss" formControlName="stopLoss" />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+
+            <div class="row plan">
+                <div class="col ">
+                    <mat-card style="    height: auto;
+                                max-height: 536px;
+                                overflow-y: auto;">
+                        <mat-card-header style="background-color: #B6AF9C; border-radius: 10px;justify-content: center;">
+                            <mat-card-title>
+                                <h4 style="color: #fff; margin-top: 15px; text-align: center">
+                                    <label>Notas</label>
+                                </h4>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <br>
+                            <div class="row" formArrayName="controlNote">
+                                <div class="col " [formGroupName]="i" *ngFor="let controlN of getControlsN(); let i = index" style="margin-bottom: 5px;">
+                                    <mat-card class="example-card">
+                                        <mat-card-content>
+                                            <div class="row col-lg-12 col-md-12 col-sm-12" style="
+                                                padding-right: 0px;
+                                                padding-left: 0px;
+                                                margin-right: 0px;
+                                                margin-left: 0px;
+                                            ">
+                                                <div class="col col-">
+                                                    <mat-form-field class="example-form-field">
+                                                        <mat-label>Título de la Nota</mat-label>
+                                                        <input matInput placeholder="Título" formControlName="title" />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="row col-lg-12 col-md-12 col-sm-12" style="
+                                                padding-right: 0px;
+                                                padding-left: 0px;
+                                                margin-right: 0px;
+                                                margin-left: 0px;
+                                            ">
+                                                <div class="col">
+                                                    <mat-form-field>
+                                                        <mat-label>Descripción de la Nota</mat-label>
+                                                        <textarea matInput placeholder="Descripción de la Nota" formControlName="note"></textarea>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </mat-card-content>
+                                        <mat-card-actions>
+                                            <div class="row col-lg-12 col-md-12 col-sm-12" style="
+                                        padding-right: 0px;
+                                        padding-left: 0px;
+                                        margin-right: 0px;
+                                        margin-left: 0px;
+                                    ">
+                                                <div class="col col-lg-10 col-lg-10 col-lg-10">
+                                                    <input class="form-control fechaP" type="datetime-local" placeholder="Fecha Creación Nota" formControlName="fechaNota">
+                                                </div>
+                                            </div>
+                                        </mat-card-actions>
+                                    </mat-card>
+                                </div>
+
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+    <mat-card-actions style="margin-bottom: 0px !important;">
+        <div class="row col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: end;">
+                <button type="button" class="btn btn-outline-danger" [mat-dialog-close]>
+                        Cerrar
+                    </button>
+            </div>
+        </div>
+    </mat-card-actions>
+</mat-card>

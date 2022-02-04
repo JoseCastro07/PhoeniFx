@@ -1,0 +1,38 @@
+@import "src/scss/variables";
+@import "src/scss/helpers";
+.edit-etapa-container {
+    display: flex;
+    flex-direction: column;
+    form {
+        input[type='file'] {
+            display: none;
+        }
+        input.mat-flat-button {
+            @include button_full($button_purpure)
+        }
+        .custom-file {
+            border: 1px solid $file_white;
+            display: inline-block;
+            padding: 6px 0;
+            cursor: pointer;
+            width: 100%;
+        }
+        mat-form-field {
+            width: 100%;
+        }
+    }
+    @media only screen and (max-width: 575px) {
+        .input-group {
+            display: grid !important;
+        }
+        .nombreE {
+            left: 0px !important;
+            padding-left: 0px!important;
+        }
+        .estado {
+            left: 0px!important;
+            padding-top: 0px!important;
+            padding-left: 0px!important;
+        }
+    }
+}

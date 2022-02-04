@@ -1,0 +1,38 @@
+<div class="main-containerAn animate__animated animate__fadeInDown" *ngIf="isDataAvailable">
+    <div class="row col-lg-12 col-md-12 col-sm-12" style="padding-left: 0px;
+    padding-right: 0px;">
+        <div class="col-lg-12 col-md-12 col-sm-12 " *ngFor="let slider of imagen">
+            <mat-card class="example-card">
+                <mat-card-header style=" display: flex;
+                justify-content: center;">
+                    <mat-card-title>
+                        <h1 style="color: #262F3D;">{{slider.titulo}}</h1>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <video *ngIf="slider.tipoE === 'mp4'" class="mx-auto d-block" width="70%" controls controlsList="nodownload">
+                        <source
+                          [src]="slider.urlImagen"
+                          type="video/mp4"
+                        />
+                      </video>
+                    <img *ngIf="slider.tipoE !== 'mp4'" class="img-fluid mx-auto d-block" [src]="slider.urlImagen" alt="{{slider.titulo}}" width="70%" />
+                </mat-card-content>
+                <mat-card-actions style="margin-bottom: 0px !important;">
+                    <p style="text-align: justify;">{{slider.descripcion}}</p>
+                    <p *ngIf="slider.urlA !== ''" style="text-align: justify;margin-bottom: 0px;"><a href="{{ slider.urlA }}" target="_blank" title="Abrir link">Ver Análisis</a></p>
+                </mat-card-actions>
+            </mat-card>
+            <br>
+        </div>
+    </div>
+</div>
+<div *ngIf="imagen.length === 0" class="row col-lg-12 col-md-12 col-sm-12 animate__animated animate__fadeInDown" style="display: flex;
+        width: 100vw;
+        height: 80vh;
+        justify-content: center;
+        align-items: center;">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <h3 style="text-align: center" *ngIf="isDataAvailable">No existe contenido de Análisis</h3>
+    </div>
+</div>

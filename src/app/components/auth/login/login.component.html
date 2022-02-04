@@ -1,0 +1,69 @@
+<mat-card class="cardL animate__animated animate__fadeInDown">
+    <mat-card-title>
+        Iniciar Sesión&nbsp;
+        <mat-icon style="font-size: xx-large">account_circle</mat-icon>
+    </mat-card-title>
+    <mat-card-content style="margin-bottom: 20px">
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <mat-form-field appearance="outline" class="matlogin">
+                <mat-label>
+                    Correo electrónico</mat-label>
+                <input type="email" matInput formControlName="email" id="txtCorreo" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [errorStateMatcher]="matcher" autocomplete="username" required />
+                <button mat-button type="button" *ngIf="loginForm.get('email').value" matSuffix mat-icon-button aria-label="Clear" (click)="loginForm.get('email').setValue('')">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="validoCorreo1">
+                    Correo electrónico <strong>inválido</strong>
+                </mat-error>
+                <mat-error *ngIf="validoCorreo2">
+                    Correo electrónico <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="matlogin">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" id="txtPassword" formControlName="password" [class.is-invalid]="validaControl1('password') && validaControl2('password')" autocomplete="current-password" pattern="[A-Za-z][A-Za-z0-9]*[0-9][A-Za-z0-9]*"
+                    required />
+                <button mat-button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+                </button>
+                <mat-error *ngIf="validaControl1('password')">
+                    Contraseña <strong>requerida</strong>
+                </mat-error>
+                <mat-error *ngIf="validaControl2('password')">
+                    La contraseña debe cumplir con los estándares <strong>requeridos</strong>
+                </mat-error>
+            </mat-form-field>
+            <div>
+                <p></p>
+                <button mat-stroked-button type="submit" class="btn btn-outline-primary btn-block">
+                    <mat-icon>input</mat-icon>&nbsp;Ingresar
+                </button>
+            </div>
+            <p></p>
+            <div class="cargandoL">
+                <mat-spinner [diameter]="70" *ngIf="cargando" title="Cargando..."></mat-spinner>
+            </div>
+            <div style="float: right">
+                <p></p>
+                ¿Aún no tienes cuenta?
+                <a mat-flat-button [routerLink]="['/membresia']" class="txt1">
+                    Registrate!
+                </a>
+            </div>
+            <div style="float: right">
+                <p></p>
+                <a mat-flat-button (click)="sendPass()" [routerLink] class="txt1">
+                    ¿Olvidaste tu contraseña?
+                </a>
+            </div>
+            <p></p>
+            <div *ngIf="valido" class="row col-lg-12 col-md-12 col-sm-12 alert alert-danger animate__animated animate__bounce animate__delay-1s alertL">
+                <div class="col-lg-10 col-md-10 col-sm-10" style="text-align: center;"><strong>Error!</strong> {{ mensaje }}</div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <a (click)="cerrar()" [routerLink] class="close" aria-label="close">&times;</a>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+    <hr />
+</mat-card>

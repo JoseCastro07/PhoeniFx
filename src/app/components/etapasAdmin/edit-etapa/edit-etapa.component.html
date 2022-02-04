@@ -1,0 +1,71 @@
+<mat-card class="edit-etapa-container" style="position: relative!important;">
+    <form autocomplete="off" [formGroup]="editEtapaForm" (ngSubmit)="editEtapa()">
+        <button mat-icon-button title="Cerrar" [mat-dialog-close]="true" style="position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    line-height: 14px;
+    min-width: auto;">
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
+          </button>
+        <mat-card-header>
+            <mat-card-title>
+                <h2 style="text-align: center">
+                    <label>Editar Etapa</label>
+                </h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="margin-bottom: 0px">
+            <mat-form-field>
+                <mat-label>Descripción de la Etapa</mat-label>
+                <input matInput placeholder="Nombre de la Etapa" id="txtDescripcion" formControlName="descripcion" required />
+                <button mat-button type="button" *ngIf="editEtapaForm.get('descripcion').value" matSuffix mat-icon-button aria-label="Clear" (click)="editEtapaForm.get('descripcion').setValue('')">
+                <mat-icon>close</mat-icon>
+            </button>
+                <mat-error *ngIf="validaDescripcion">
+                    La descripción es <strong>requerida</strong>
+                </mat-error>
+            </mat-form-field>
+            <div class="row col-lg-12 col-md-12 col-sm-12">
+                <div class="col col-lg-4 col-md-4 col-sm-4" style="padding-left: 0px">
+                    <mat-form-field>
+                        <mat-select placeholder="Sección" formControlName="codigoSeccion">
+                            <mat-option *ngFor="let seccion of secciones" [value]="seccion.id">{{ seccion.descripcion }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4 nombreE" style="left: 15px">
+                    <mat-form-field>
+                        <mat-label>Nombre de la carpeta</mat-label>
+                        <input matInput formControlName="nombreEtapa" />
+                    </mat-form-field>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4 estado" style="left: 45px; padding-top: 15px">
+                    <mat-slide-toggle color="primary" formControlName="estado">Estado: {{ editEtapaForm.get("estado").value ? "Activo" : "Inactivo" }}
+                    </mat-slide-toggle>
+                </div>
+            </div>
+            <hr />
+        </mat-card-content>
+        <mat-card-actions style="margin-bottom: 0px !important;">
+            <div class="row col-lg-12 col-md-12 col-sm-12" style="padding-right: 0px;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: 0px;">
+                <label class="col-lg-4 col-md-4 col-sm-4 col-form-label">&nbsp;</label>
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <button type="submit" id="btnEditar" class="btn btn-outline-primary btn-block">
+                Editar
+            </button>
+                </div>
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <label for=""></label>
+                    <button type="button" class="btn btn-outline-danger btn-block" [mat-dialog-close]>
+                Cancelar
+            </button>
+                </div>
+            </div>
+        </mat-card-actions>
+    </form>
+</mat-card>

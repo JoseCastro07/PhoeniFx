@@ -1,0 +1,144 @@
+<footer *ngIf="
+    router.url === '/trading' ||
+    router.url === '/educacion' ||
+    router.url === '/desarrollo' ||
+    router.url === '/webinar'
+  " class="page-footer font-small unique-color-dark" style="position: relative; bottom: 0; left: 0; overflow: hidden">
+    <div class="row animate__animated animate__fadeInUp">
+        <div class="footer-copyright text-center py-3 footerC">
+            Derechos de autor © 2021 PhoeniFx.com
+            <a href="https://firebasestorage.googleapis.com/v0/b/phoenifxs.appspot.com/o/archivosVarios%2FT%C3%A9rminos%20y%20condiciones%20PhoeniFx.pdf?alt=media&token=457e880a-4804-4c44-8cb2-b193a315c7d8" target="_blank">Política de Privacidad.</a>
+        </div>
+    </div>
+</footer>
+
+<footer *ngIf="router.url === '/login'" class="page-footer font-small unique-color-dark loginF">
+    <div class="row animate__animated animate__fadeInUp">
+        <div class="footer-copyright text-center py-3 footerC">
+            Derechos de autor © 2021 PhoeniFx.com
+            <a href="https://firebasestorage.googleapis.com/v0/b/phoenifxs.appspot.com/o/archivosVarios%2FT%C3%A9rminos%20y%20condiciones%20PhoeniFx.pdf?alt=media&token=457e880a-4804-4c44-8cb2-b193a315c7d8" target="_blank">Política de Privacidad.</a>
+        </div>
+    </div>
+</footer>
+
+<footer *ngIf="
+router.url === '/home' ||
+router.url === '/actividad' ||
+router.url === '/analisis' ||
+router.url === '/planTrading'||
+router.url === '/tienda'||
+router.url === '/membresia'
+  " class="page-footer font-small unique-color-dark animate__animated animate__fadeInUp" style="
+    position: relative;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;    
+    background-color: #1F4B78;   
+  ">
+    <!--background-image: url('../../../../assets/images/footer.jpg');background-color: #00A9F7;-->
+    <div class="container text-center text-md-left" style="margin-bottom: 90px;">
+        <div class="row col-lg-12 col-md-12 col-sm-12">
+            <div class="col-md-7 col-lg-7 col-xl-7 mx-auto mb-md-0 mb-5" style="width: 100%; left: 15px; top: 100px; color: #fff;">
+                <h2 class="font-weight-bold animate__animated animate__bounce animate__delay-1s" style="color: #fff;">
+                    CONTACTO
+                </h2>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 165px;background-color: #fff;" />
+                <p>
+                    <img alt="Image" src="assets/images/lugar.jpg" class="rounded-circle" width="25" height="25" /> Alajuela, Costa Rica. Código postal 20607.
+                </p>
+                <p>
+                    <a href="javascript:void(0) " style="color: #fff">
+                        <button mat-button type="button" style="padding-left: 0px" (click)="sendEmail()" title="Consultar Información">
+                            <img alt="Image" src="assets/images/correo.png" class="rounded-circle" width="25" height="25" /> info@phoenifx.com
+                        </button>
+                    </a>
+                </p>
+                <p>
+                    <img alt="Image" src="assets/images/whatsapp.png" class="rounded-circle" width="25" height="25" /> +506 86832651
+                </p>
+                <div class="col" style="padding-left: 0px">
+                    <a class="navbar-brand" href="https://www.facebook.com/phoenifx" target="_blank" title="Facebook">
+                        <img alt="Image" src="assets/images/facebook.jpg" class="rounded-circle" width="35" height="35" />
+                    </a>
+                    <a class="navbar-brand" href="https://www.instagram.com/phoenifx/" target="_blank" title="Instagram">
+                        <img alt="Image" src="assets/images/instagram.png" class="rounded-circle" width="35" height="35" />
+                    </a>
+                    <a class="navbar-brand" href="https://t.me/joinchat/TDHlEMhb-Dro8dww" target="_blank" title="Telegram"><img alt="Image" src="assets/images/telegram.jpg" class="rounded-circle" width="35" height="35" /></a>
+                    <a class="navbar-brand" href="https://www.youtube.com/channel/UCYsz8Hc2WJW-IZfhXYxwKzA" target="_blank" title="YouTube">
+                        <img alt="Image" src="assets/images/youtube.png" class="rounded-circle" width="40" height="40" />
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-5 col-lg-5 col-xl-5 mx-auto mb-md-0 mb-5" style="width: 100%; left: 15px; top: 60px">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title class="animate__animated animate__bounce animate__delay-1s">
+                            <h3 style="text-align: center; color: #262F3D;" class="noticieroT">
+                                Suscríbete a nuestro noticiero semanal
+                            </h3>
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            <h6 style="text-align: center; color: #262F3D;" class="noticieroD">
+                                Te enviaremos una vez a la semana un correo de nuestros nuevos cursos y videos gratis.
+                            </h6>
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <form [formGroup]="footerForm" (ngSubmit)="sendEmail(1)">
+                            <mat-form-field appearance="outline" style="width: 100%;
+                            font-size: 1rem;
+                            margin: 0 auto;
+                            margin-top: 1rem;">
+                                <mat-label>Nombre</mat-label>
+                                <input matInput placeholder="Nombre" formControlName="name" id="txtNombre" [class.is-invalid]="validaControl('name')" required />
+                                <button mat-button type="button" *ngIf="footerForm.get('name').value" matSuffix mat-icon-button aria-label="Clear" (click)="footerForm.get('name').setValue('')">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-error *ngIf="validaControl('name')">
+                                    El nombre es <strong>requerido</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" style="width: 100%;
+                            font-size: 1rem;
+                            margin: 0 auto;
+                            margin-top: 1rem;">
+                                <mat-label>Correo electrónico</mat-label>
+                                <input type="email" matInput formControlName="emailF" id="txtEmail" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [errorStateMatcher]="matcher" required />
+                                <button mat-button type="button" *ngIf="footerForm.get('emailF').value" matSuffix mat-icon-button aria-label="Clear" (click)="footerForm.get('emailF').setValue('')">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-error *ngIf="validoCorreo1">
+                                    Correo electrónico <strong>inválido</strong>
+                                </mat-error>
+                                <mat-error *ngIf="validoCorreo2">
+                                    Correo electrónico <strong>requerido</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <div>
+                                <p></p>
+                                <button mat-raised-button type="submit" id="btnEnviar" class="btn btn-block" color="accent">
+                                    <mat-icon>drafts</mat-icon>&nbsp;Enviar
+                                </button>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                    <hr />
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <div class="row example-button-container">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: end;">
+            <button mat-fab class="animate__animated animate__bounce animate__delay-1s" color="Accent" aria-label="Example icon button with a bookmark icon" (click)="irArriba()" matTooltip="Subir" matTooltipPosition="left" matTooltipClass="example-tooltipF" style="right: 10px; bottom: 5px;">
+                <mat-icon class="up">arrow_upward</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="footer-copyright text-center py-3 footerC">
+            <p>Derechos de autor © 2021 PhoeniFx.com
+                <a href="https://firebasestorage.googleapis.com/v0/b/phoenifxs.appspot.com/o/archivosVarios%2FT%C3%A9rminos%20y%20condiciones%20PhoeniFx.pdf?alt=media&token=457e880a-4804-4c44-8cb2-b193a315c7d8" target="_blank">Política de Privacidad.</a>
+            </p>
+        </div>
+    </div>
+</footer>

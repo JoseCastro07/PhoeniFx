@@ -1,0 +1,64 @@
+    * {
+        -webkit-transition: margin-left 0.2s ease-in-out;
+        -moz-transition: margin-left 0.2s ease-in-out;
+        -ms-transition: margin-left 0.2s ease-in-out;
+        -o-transition: margin-left 0.2s ease-in-out;
+        transition: margin-left 0.2s ease-in-out;
+    }
+    
+    .main-containerPl {
+        padding-top: 100px !important;
+        top: 0px !important;
+        -ms-overflow-x: hidden;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        position: relative;
+        overflow: hidden;
+        height: auto !important;
+        padding-bottom: 50px !important;
+    }
+    
+    .plan {
+        padding-left: 18px !important;
+        padding-right: 16px !important;
+        padding-bottom: 60px !important;
+        background-color: #fff !important;
+    }
+    
+    .mat-card-header {
+        justify-content: center;
+    }
+    
+    .posicionP {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    mat-form-field {
+        width: 100%;
+    }
+    
+    .mat-slider-horizontal {
+        width: auto !important;
+    }
+    
+    @media only screen and (max-width: 605px) and (min-width: 576px) {
+        .disminuir {
+            font-size: smaller !important;
+        }
+    }
+    
+    @media only screen and (max-width: 575px) {
+        .bajar {
+            top: 5px !important;
+        }
+    }
+    
+    @media only screen and (max-width: 448px) {
+        .delete {
+            padding-top: 20px !important;
+        }
+    }

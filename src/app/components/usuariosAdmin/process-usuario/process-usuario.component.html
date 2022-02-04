@@ -1,0 +1,81 @@
+<mat-card class="process-usuario-container">
+    <button mat-icon-button title="Cerrar" [mat-dialog-close]="true" style="position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    line-height: 14px;
+    min-width: auto;">
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
+          </button>
+    <mat-card-header>
+        <mat-card-title>
+            <h2 style="margin-top: 15px; text-align: center">
+                <label>Proceso del Usuario</label>&nbsp;
+                <mat-icon style="float: right;cursor: pointer; font-size: xx-large;" (click)="openDialog()" matTooltip="Ver Plan Trading de Usuario" matTooltipPosition="right" matTooltipClass="example-tooltipUP">visibility</mat-icon>
+            </h2>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h6>Usuario: {{ usuario.nombre }}</h6>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content style="margin-bottom: 0px">
+        <mat-card>
+            <p style="float: left">Sección de Trading</p>
+            <p style="float: right">{{ fechaT }}</p>
+            <mat-card-content matTooltip="{{ resultadoT }}" matTooltipPosition="below">
+                <section class="example-section">
+                    <div class="posicionV">
+                        <mat-progress-bar class="example-margin" color="primary" mode="determinate" [value]="progressT">
+                        </mat-progress-bar>
+                        <div style="position: absolute">
+                            <h6 style="margin-bottom: 15px">{{ progressT }}%</h6>
+                        </div>
+                    </div>
+                </section>
+            </mat-card-content>
+        </mat-card>
+        <br />
+
+        <mat-card>
+            <p style="float: left">Sección de Educación Financiera</p>
+            <p style="float: right">{{ fechaE }}</p>
+            <mat-card-content matTooltip="{{ resultadoE }}" matTooltipPosition="below">
+                <section class="example-section">
+                    <div class="posicionV">
+                        <mat-progress-bar class="example-margin" color="warn" mode="determinate" [value]="progressE">
+                        </mat-progress-bar>
+                        <div style="position: absolute">
+                            <h6 style="margin-bottom: 15px">{{ progressE }}%</h6>
+                        </div>
+                    </div>
+                </section>
+            </mat-card-content>
+        </mat-card>
+        <br />
+
+        <mat-card>
+            <p style="float: left">Sección de Desarrollo Personal</p>
+            <p style="float: right">{{ fechaD }}</p>
+            <mat-card-content matTooltip="{{ resultadoD }}" matTooltipPosition="below">
+                <section class="example-section">
+                    <div class="posicionV">
+                        <mat-progress-bar class="example-margin" color="accent" mode="determinate" [value]="progressD">
+                        </mat-progress-bar>
+                        <div style="position: absolute">
+                            <h6 style="margin-bottom: 15px">{{ progressD }}%</h6>
+                        </div>
+                    </div>
+                </section>
+            </mat-card-content>
+        </mat-card>
+    </mat-card-content>
+    <mat-card-actions style="margin-bottom: 0px !important;">
+        <div class="row col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: end;">
+                <button type="button" class="btn btn-outline-danger" [mat-dialog-close]>
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </mat-card-actions>
+</mat-card>

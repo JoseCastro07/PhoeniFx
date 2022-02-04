@@ -1,0 +1,154 @@
+<mat-card class="edit-actividad-container" style=" position: relative!important;" (window:resize)="onResize($event)">
+    <form autocomplete="off" [formGroup]="editActividadForm" (ngSubmit)="editActividad()">
+        <button mat-icon-button title="Cerrar" [mat-dialog-close]="true" style="position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    line-height: 14px;
+    min-width: auto;">
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
+          </button>
+        <mat-card-header>
+            <mat-card-title>
+                <h2 style="text-align: center;">{{ nombreT }}
+                    <mat-icon *ngIf="nombreT === 'Editar Actividad'" style="cursor: pointer" matTooltip="La actividad que se va a editar quedara con la hora estándar central de Costa Rica." matTooltipPosition="right" matTooltipClass="example-tooltipA">
+                        info</mat-icon>
+                </h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="margin-bottom: 0px">
+            <mat-form-field class="example-form-field">
+                <mat-label>Nombre de la Actividad</mat-label>
+                <input matInput id="txtNombre" placeholder="Nombre de la Actividad" formControlName="nombre" [class.is-invalid]="validaControl('nombre')" required />
+                <button mat-button type="button" *ngIf="editActividadForm.get('nombre').value && actividad.tipo === 1" matSuffix mat-icon-button aria-label="Clear" (click)="editActividadForm.get('nombre').setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+                <mat-error *ngIf="validaControl('nombre')">
+                    El nombre es <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Descripción de la Actividad</mat-label>
+                <textarea matInput id="txtDescripcion" placeholder="Descripción de la Actividad" formControlName="descripcion" [class.is-invalid]="validaControl('descripcion')" required></textarea>
+                <button mat-button type="button" *ngIf="editActividadForm.get('descripcion').value && actividad.tipo === 1" matSuffix mat-icon-button aria-label="Clear" (click)="editActividadForm.get('descripcion').setValue('')">
+                <mat-icon>close</mat-icon>
+            </button>
+                <mat-error *ngIf="validaControl('descripcion')">
+                    La descripción es <strong>requerida</strong>
+                </mat-error>
+            </mat-form-field>
+            <div class="row col-lg-12 col-md-12 col-sm-12 vista">
+                <div class="col col-lg-8 col-md-8 col-sm-8 vista" style="left: 0px; padding-left: 0px">
+                    <mat-form-field appearance="outline" [ngClass]="{ ocultarC: actividad.tipo === 2 }">
+                        <mat-label>Rango de fechas</mat-label>
+                        <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [min]="fechaA">
+                            <input matStartDate formControlName="start" disabled placeholder="Fecha Inicial" />
+                            <input matEndDate formControlName="end" disabled placeholder="Fecha Final" />
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle id="rango" matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker [disabled]="actividad.tipo === 2" #picker [touchUi]="calendario"></mat-date-range-picker>
+
+                        <mat-error *ngIf="validaFecha('end')">
+                            La fecha final es <strong>requerida</strong>
+                        </mat-error>
+                        <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Fecha Inicial Invalida</mat-error>
+                        <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Fecha Final Invalida</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col col-lg-4 col-md-4 col-sm-4 estado" style="padding-top: 20px">
+                    <mat-slide-toggle color="primary" formControlName="estado">Estado: {{ editActividadForm.get("estado").value ? "Activo" : "Inactivo" }}
+                    </mat-slide-toggle>
+                </div>
+            </div>
+            <hr />
+            <div formArrayName="controlUrls">
+                <div [formGroupName]="i" *ngFor="let controlU of getControls(); let i = index">
+                    <div class="row col-lg-12 col-md-12 col-sm-12">
+                        <div class="col col-lg-12 col-md-12 col-sm-12" style="left: 0px; padding-left: 0px">
+                            <mat-form-field class="example-form-field">
+                                <mat-label>Url</mat-label>
+                                <input type="text" id="txtUrl_{{ i }}" matInput formControlName="url" placeholder="Url" required />
+                                <button mat-button type="button" *ngIf="controlU.controls.url.value" matSuffix mat-icon-button aria-label="Clear" (click)="controlU.controls.url.setValue('')">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                                <mat-error *ngIf="validaU || (controlU.controls.url.invalid && controlU.controls.url.touched)">La url es <strong>necesaria</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row col-lg-12 col-md-12 col-sm-12">
+                        <div class="col col-lg-12 col-md-12 col-sm-12" style="left: 0px; padding-left: 0px">
+                            <mat-form-field class="example-form-field">
+                                <mat-label>Descripción Url</mat-label>
+                                <input type="text" id="txtDescripcion_{{ i }}" matInput formControlName="descripcion" placeholder="Descripción Url" required />
+                                <button mat-button type="button" *ngIf="controlU.controls.descripcion.value" matSuffix mat-icon-button aria-label="Clear" (click)="controlU.controls.descripcion.setValue('')">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                                <mat-error *ngIf="validaC || (controlU.controls.descripcion.invalid && controlU.controls.descripcion.touched)">La descripción es <strong>necesaria (máximo 50 caracteres)</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div><br *ngIf="calendario && (validaC || (controlU.controls.descripcion.invalid && controlU.controls.descripcion.touched))">
+                    <div class="row col-lg-12 col-md-12 col-sm-12">
+                        <div class="col col-lg-3 col-md-3 col-sm-3" style="left: 0px; padding-left: 0px">
+                            <mat-form-field class="example-form-field">
+                                <mat-label>Hora</mat-label>
+                                <input type="time" matInput id="tmHora_{{ i }}" formControlName="hora" placeholder="Hora" required />
+                                <mat-error *ngIf="validaH || (controlU.controls.hora.invalid && controlU.controls.hora.touched)">Formato de hora es <strong>incorrecto</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col col-lg-4 col-md-4 col-sm-4" style="left: 0px; padding-left: 0px">
+                            <mat-form-field class="example-form-field">
+                                <mat-label>Duración Clase(Hora)</mat-label>
+                                <input type="number" matInput id="nbHoraD_{{ i }}" formControlName="horaD" placeholder="Duración Clase(Hora)" min="0" max="23" required matTooltip="La duración va entre 0 a 23." matTooltipPosition="below" matTooltipClass="example-tooltipU" />
+                                <button mat-button type="button" *ngIf="controlU.controls.horaD.value" matSuffix mat-icon-button aria-label="Clear" (click)="controlU.controls.horaD.setValue('')">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                                <mat-error *ngIf="validaHF || (controlU.controls.horaD.invalid && controlU.controls.hora.touched)">La duración de la hora es <strong>incorrecta</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col col-lg-4 col-md-4 col-sm-4" style="left: 0px; padding-left: 0px">
+                            <mat-form-field class="example-form-field">
+                                <mat-label>Duración Clase(Minuto)</mat-label>
+                                <input type="number" matInput id="nbMinutoD_{{ i }}" formControlName="minutoD" placeholder="Duración Clase(Minuto)" min="0" max="60" required matTooltip="La duración va entre 0 a 60." matTooltipPosition="below" matTooltipClass="example-tooltipU" />
+                                <button mat-button type="button" *ngIf="controlU.controls.minutoD.value" matSuffix mat-icon-button aria-label="Clear" (click)="controlU.controls.minutoD.setValue('')">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                                <mat-error *ngIf="validaMF || (controlU.controls.minutoD.invalid && controlU.controls.minutoD.touched)">La duración del minuto es <strong>incorrecto</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col col-lg-1 col-md-1 col-sm-1" style="padding-top: 10px; padding-left: 0px">
+                            <button mat-stroked-button class="btn btn-outline-danger" (click)="deleteControlUrls(i)" title="Borrar">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                        </div>
+                    </div>
+                    <hr *ngIf="actividad.tipo === 1" />
+                </div>
+            </div>
+            <div class="col col-lg-3 col-md-3 col-sm-3">
+                <button *ngIf="actividad.tipo === 1" type="button" class="btn btn-outline-success btn-block" (click)="addControlUrls()">
+        + Añadir Url
+      </button>
+            </div>
+            <hr />
+        </mat-card-content>
+        <mat-card-actions style="margin-bottom: 0px !important;">
+            <div class="row col-lg-12 col-md-12 col-sm-12" style="padding-right: 0px;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: 0px;">
+                <label class="col-lg-4 col-md-4 col-sm-4 col-form-label">&nbsp;</label>
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <button *ngIf="actividad.tipo === 1" type="submit" id="btnEditar" class="btn btn-outline-primary btn-block">
+      Editar
+    </button>
+                </div>
+                <div class="input-group col-lg-4 col-md-4 col-sm-4">
+                    <label for=""></label>
+                    <button type="button" id="btnCancelar" class="btn btn-outline-danger btn-block" [mat-dialog-close]>
+      {{ nombreB }}
+    </button>
+                </div>
+            </div>
+        </mat-card-actions>
+    </form>
+</mat-card>

@@ -1,0 +1,72 @@
+@import "src/scss/variables";
+:host {
+    margin-top: 45px;
+    //  margin-bottom: 105px;
+    display: grid !important;
+    align-items: center;
+    justify-content: center;
+    padding-top: 120px !important;
+}
+
+@media only screen and (max-width: 1370px) {
+     :host {
+        padding-top: 45px !important;
+    }
+}
+
+.matlogin {
+    width: 100%;
+    min-width: 300px;
+    font-size: 1rem;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+
+mat-card-title,
+mat-card-content {
+    display: flex;
+    justify-content: center;
+}
+
+.txt1 {
+    font-size: 14px;
+    color: #827ffe;
+    line-height: 1.4;
+}
+
+.cardL {
+    max-width: 380px !important;
+    height: auto !important;
+    bottom: 1px;
+}
+
+.alertL {
+    top: 18px;
+    margin-bottom: 10px;
+    text-align: justify;
+    margin-left: 0px;
+}
+
+.cargandoL {
+    position: absolute;
+}
+
+@media only screen and (max-width: 400px) {
+    .cardL {
+        max-width: 340px !important;
+    }
+    .cargandoL {
+        left: 5px !important;
+    }
+}
+
+.animate__animated {
+    animation-fill-mode: none !important;
+}
+
+
+/*
+.toast-custom {
+    top: 80px;
+    right: 0px;
+}*/

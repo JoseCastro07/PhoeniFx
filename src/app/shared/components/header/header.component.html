@@ -1,0 +1,181 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark animate__animated animate__fadeInDown">
+    <a class="navbar-brand" [routerLink]="['/home']">
+        <img alt="Image" src="assets/images/logo.png" class="logo" /> &nbsp;
+        <font>Phoeni</font>
+        <font style="color: #C29E23;">F</font>
+        <font>x</font>
+    </a>
+    <button class="navbar-toggler collapsed" type="button" (click)="toggleSidebar()">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse" [ngClass]="{ collapseH: isCollapse }" (window:resize)="onResize($event)">
+        <ul *ngIf="router.url !== '/login'" class="navbar-nav">
+            <li>
+                <div class="d-inline-block" ngbDropdown>
+                    <a *ngIf="authSvc.userData$ | async" href="javascript:void(0)" [ngClass]="{ disabled: disabled }">
+                        <button mat-button class="btn sistema" type="button" id="dropdownManual1" ngbDropdownToggle [disabled]="disabled">
+                            <mat-icon style="font-size: 20px">library_books</mat-icon>&nbsp;{{
+                            selection
+                            }}
+                        </button>
+                    </a>
+                    <div class="dropdown-menu sistema" style="
+                    top: 47px !important" ngbDropdownMenu aria-labelledby="dropdownManual1">
+                        <button *ngFor="let array of selectionArray" class="btnH" type="button" ngbDropdownItem title="Sección {{ array.descripcion }}" style="background-color: #262f3d">
+                            <a *ngIf="authSvc.userData$ | async" class="sistema" [routerLink]="array.url"
+                                (click)="cerrartoggleSidebar()">
+                                <button ngbDropdownItem mat-button type="button"
+                                    style="background-color: white; color: #262f3d">
+                                    {{ array.descripcion }}
+                                </button>
+                        </a>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul *ngIf="router.url !== '/login' && authSvc.userData$ | async" class="navbar-nav">
+            <li>
+                <a [routerLink]="['/webinar']" title="Webinar" [ngClass]="{ disabled: disabled }" (click)="cerrartoggleSidebar()">
+                    <button mat-button class="btn sistema" type="button" [disabled]="disabled">
+                        <mat-icon style="font-size: 20px">live_tv</mat-icon>&nbsp;{{modulo1}}
+                    </button>
+                </a>
+            </li>
+        </ul>
+        <ul *ngIf="router.url !== '/login' && authSvc.userData$ | async" class="navbar-nav">
+            <li>
+                <a [routerLink]="['/actividad']" title="Actividades" [ngClass]="{ disabled: disabled }" (click)="cerrartoggleSidebar()">
+                    <button mat-button class="btn sistema" type="button" [disabled]="disabled">
+                        <mat-icon style="font-size: 20px">calendar_today</mat-icon>&nbsp;{{modulo2}}
+                    </button>
+                </a>
+            </li>
+        </ul>
+        <ul *ngIf="router.url !== '/login' && authSvc.userData$ | async" class="navbar-nav">
+            <li>
+                <a [routerLink]="['/analisis']" title="Análisis" [ngClass]="{ disabled: disabled }" (click)="cerrartoggleSidebar()">
+                    <button mat-button class="btn sistema" type="button" [disabled]="disabled">
+                        <mat-icon style="font-size: 20px">graphic_eq</mat-icon>&nbsp;{{modulo3}}
+                    </button>
+                </a>
+            </li>
+        </ul>
+        <ul *ngIf="router.url !== '/login' && authSvc.userData$ | async" class="navbar-nav">
+            <li>
+                <a [routerLink]="['/planTrading']" title="Plan Trading" [ngClass]="{ disabled: disabled }" (click)="cerrartoggleSidebar()">
+                    <button mat-button class="btn sistema" type="button" [disabled]="disabled">
+                        <mat-icon style="font-size: 20px">assignment</mat-icon>&nbsp;{{modulo4}}
+                    </button>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li>
+                <a [routerLink]="['/tienda']" title="Tienda" (click)="cerrartoggleSidebar()">
+                    <button mat-button class="btn sistema" type="button">
+                        <mat-icon style="font-size: 20px">store</mat-icon>&nbsp;{{modulo5}}
+                    </button>
+                </a>
+            </li>
+        </ul>
+        <ul *ngIf="router.url !== '/login'" class="navbar-nav ml-auto">
+            <li *ngIf="
+            router.url === '/home' ||
+            router.url === '/actividad' ||
+            router.url === '/analisis' ||
+            router.url === '/planTrading'||
+            router.url === '/tienda'||
+            router.url === '/membresia'
+        " style="margin-left: 20px; margin-right: 20px;">
+                <div style="position: relative">
+                    <a [routerLink]="['/membresia']" title="{{ valor }}" (click)="cerrartoggleSidebar()">
+                        <button mat-raised-button type="button" style="
+                border-radius: 30px;
+                padding-left: 35px;
+                padding-right: 35px;
+                padding-top: 3px;
+                padding-bottom: 3px;background-color: #ffd740;
+              ">
+                            <mat-icon style="font-size: 20px">card_membership</mat-icon>&nbsp;
+                            {{ modulo6 }}
+                        </button>
+                    </a>
+                </div>
+            </li>
+            <li *ngIf="
+          (router.url === '/trading' ||
+          router.url === '/educacion' ||    
+          router.url === '/desarrollo' ||
+          router.url === '/webinar') && porcentajeVV >= 0
+        " style="margin-top: 9px; width: 85px;" class="liporcentaje">
+                <div class="porcentaje" style="position: relative" [title]="resultadoVV">
+                    <mat-progress-spinner class="spinner" [color]="color" mode="determinate" [value]="porcentajeVV" diameter="53">
+                    </mat-progress-spinner>
+                    <h6 style="color: white; margin-bottom: 0px">{{ porcentajeVV }}%</h6>
+                </div>
+            </li>
+            <li *ngIf="
+            (router.url === '/home' ||
+            router.url === '/actividad' ||
+            router.url === '/analisis' ||
+            router.url === '/planTrading'||
+            router.url === '/tienda'||
+            router.url === '/membresia')  && authSvc.userData$ | async
+          " style="margin-top: 9px; width: 55px;" class="lialerta">
+                <div class="porcentaje" style="position: relative; color: white;cursor: pointer;" (click)="verNotificacion()" title="Ver Notificaciones" [ngClass]="{ disabled: disabled }">
+                    <mat-icon matBadge="{{contadorN}}" matBadgeColor="warn">notifications_active</mat-icon>
+                </div>
+            </li>
+            <li style="margin-right: 5px;" [ngClass]="{top: router.url === '/home' || router.url === '/actividad' || router.url === '/analisis' || router.url === '/planTrading'|| router.url === '/tienda' || router.url === '/membresia'}">
+                <div class="d-inline-block admin" ngbDropdown>
+                    <a *ngIf="authSvc.userData$ | async; else showLogin" href="javascript:void(0)">
+                        <button mat-button class="btn administracion" type="button " id="dropdownManual2" ngbDropdownToggle>
+                            <!-- <mat-icon>account_circle</mat-icon>&nbsp;{{ username }} -->
+                            <img [src]="userPhoto" title="{{ username }}" alt="Image" class="photo" />
+                        </button>
+                    </a>
+                    <ng-template #showLogin>
+                        <a *ngIf="router.url === '/home'||
+                        router.url === '/tienda' ||
+                        router.url === '/membresia'" [routerLink]="['/login']" routerLinkActive="active" (click)="cerrartoggleSidebar()">
+                            <button mat-button class="btn administracion" type="button ">
+                                <mat-icon>input</mat-icon>&nbsp;Ingresar
+                            </button>
+                        </a>
+                    </ng-template>
+                    <div class="dropdown-menu-right administracion" ngbDropdownMenu aria-labelledby="dropdownManual2" style="
+                    top: 47px !important">
+                        <button type="button" class="btnH" ngbDropdownItem title="Perfil" [ngClass]="{ disabled: disabled }">
+                            <a *ngIf="authSvc.userData$ | async" class="administracion" (click)="openDialog()"
+                                href="javascript:void(0)">
+                                <button ngbDropdownItem mat-button type="button"
+                                    style="background-color: white; color: #262f3d" [disabled]="disabled">
+                                    <mat-icon>account_circle</mat-icon>
+                                </button>
+                        </a>
+                        </button>
+                        <button type="button" ngbDropdownItem title="Administración" class="btnH">
+                            <a *ngIf="rol === '1.gxp12jt$l#' && authSvc.userData$ | async" class="administracion"
+                                [routerLink]="['/adminmaintenancemodulePF']" (click)="eventoAdmin()">
+                                <button ngbDropdownItem mat-button type="button"
+                                    style="background-color: white; color: #262f3d">
+                                    <mat-icon>settings</mat-icon>
+                                </button>
+                        </a>
+                        </button>
+                        <button type="button" ngbDropdownItem class="btnH">
+                            <a class="administracion" (click)="onLogout()" href="javascript:void(0)">
+                                <button type="button" ngbDropdownItem mat-button
+                                    style="background-color: white; color: #262f3d">
+                                    <mat-icon>power_settings_new</mat-icon>&nbsp;Cerrar Sesión
+                                </button>
+                        </a>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

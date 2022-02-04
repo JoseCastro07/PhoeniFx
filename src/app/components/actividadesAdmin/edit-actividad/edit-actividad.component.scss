@@ -1,0 +1,42 @@
+@import "src/scss/variables";
+@import "src/scss/helpers";
+.edit-actividad-container {
+    display: flex;
+    flex-direction: column;
+    form {
+        input[type="file"] {
+            display: none;
+        }
+        input.mat-flat-button {
+            @include button_full($button_purpure);
+        }
+        mat-form-field {
+            width: 100%;
+        }
+    }
+    @media only screen and (max-width: 575px) {
+        .input-group {
+            display: grid !important;
+        }
+        .estado {
+            padding-top: 0px!important;
+            padding-left: 0px!important;
+        }
+        .url {
+            padding-left: 0px !important;
+        }
+    }
+    .ocultarC {
+        .mat-form-field-outline {
+            color: rgba(0, 0, 0, .06) !important;
+        }
+    }
+    @media only screen and (max-width: 390px) {
+        .vista {
+            padding-right: 0px !important;
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+            padding-left: 0px !important;
+        }
+    }
+}
