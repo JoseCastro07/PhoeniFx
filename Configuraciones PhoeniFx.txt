@@ -1,0 +1,108 @@
+firebase functions:config:set gmail.email="info@phoenifx.com" gmail.password="Fibo612021"
+
+descomentar el app.component
+cambiar environment 
+cambiar app.module y el index de las functions
+ver tambien el .firebaserc  y firebase.json
+
+crear la tabla codigoPais y agregar los diferentes paises
+cl-firebase.json se elimino ya que se probo y no se necesita pero en caso de que no se envien los correo o no se actualizen los datos agregar de nuevo creando una nueva clave privada 
+https://console.firebase.google.com/u/1/project/phoenifxs/settings/serviceaccounts/adminsdk
+
+antes de hacer el pase borrar las actividades que existan
+agregar indice al modulo de planTrading https://console.firebase.google.com/u/1/project/phoenifxs/firestore/indexes
+
+meter las reglas de bases en firebase
+
+
+Crear la configuracion de la tabla nueva en firebase realtime database y las reglas y el backup
+
+https://cloud.google.com/datastore/docs/schedule-export
+Terminal del bucket nuevo que se tiene que crear   https://console.cloud.google.com/storage/browser?authuser=1&project=phoenifxs&prefix=
+gcloud projects add-iam-policy-binding phoenifxs \
+    --member serviceAccount:phoenifxs@appspot.gserviceaccount.com \
+    --role roles/datastore.importExportAdmin
+	
+	gsutil iam ch serviceAccount:phoenifxs@appspot.gserviceaccount.com:admin \
+    gs://phoenifx.com
+
+Aplicar ls funciones a ver si no hay errores. https://console.cloud.google.com/cloudscheduler?project=phoenifxs&authuser=1&folder=&organizationId=
+
+borrar la carpeta de terminos del storage
+
+Agregar a las imagenes que ya existen la columna tipoImagen = 1
+
+Quitar la URL http://localhost:4200/ de https://console.cloud.google.com/apis/credentials/key/0ef2de93-9289-4b33-8f35-7d9cb01e06c9?authuser=1&project=phoenifxs si es en produccion 
+
+
+Imagen noticia
+2013
+1135
+Imagen Testimonio 
+4068
+1556
+Imagen Analisis
+1508
+780
+
+
+
+error a la hora de agregar la actividad en la misma fecha de hoy 
+
+
+Phoenifxacademy@gmail.com
+RiquezaReal2021
+
+apriltrading06@gmail.com
+Oso.2901
+
+
+1. Pagar con tarjeta con fondos un monto de 5 dolares  Check
+2. Pagar con tarjeta sin fondos y con tarjeta que ya haya expirado Check
+3. Pagar desde un paypal con fondos 5 dolares. Check
+4. Pagar con paypal sin fondos. Check
+
+Cada mes borrar las copias de seguridad.
+
+Se va cambiar el numero de celular en el footer y en el correo de nuevo usuario.
+
+
+Debuguear en VS Code
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    
+
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
+
+ng build --prod
+firebase login
+firebase init sino esta configurado
+firebase deploy 
+firebase functions:config:set gmail.email="info@phoenifx.com" gmail.password="Fibo612021"
+
+
+…or create a new repository on the command line
+echo "# PhoeniFx" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/JoseCastro07/PhoeniFx.git sino funciona escribir esto git remote rm origin
+git push -u origin main
+
+…or push an existing repository from the command line
+git remote add origin https://github.com/JoseCastro07/PhoeniFx.git  sino funciona escribir esto git remote rm origin
+git branch -M main
+git push -u origin main
